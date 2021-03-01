@@ -8,14 +8,19 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-
 //==============================================================================
 MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor (MultiBandCompressorAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
-    setSize (400, 300);
+
+    setSize(300, 500);
+    
+    ratioLow.addListener(this);
+    ratioLow.setBounds(50, 300, 30, 30);
+    ratioLow.setRange(1.f, 100.f, .1f);
+    ratioLow.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    addAndMakeVisible(ratioLow);
+    
 }
 
 MultiBandCompressorAudioProcessorEditor::~MultiBandCompressorAudioProcessorEditor()
@@ -37,4 +42,11 @@ void MultiBandCompressorAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
+}
+
+void MultiBandCompressorAudioProcessorEditor::sliderValueChanged(juce::Slider * slider){
+
+    if (slider == &ratioLow){
+       ;
+    }
 }

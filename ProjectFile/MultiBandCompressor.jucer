@@ -16,6 +16,8 @@
       <FILE id="IVbxcC" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
       <FILE id="WJpQIo" name="Compressor.cpp" compile="1" resource="0" file="Source/Compressor.cpp"/>
       <FILE id="Xgxy1b" name="Compressor.h" compile="0" resource="0" file="Source/Compressor.h"/>
+      <FILE id="zAav3d" name="AudioEffect.cpp" compile="1" resource="0" file="Source/AudioEffect.cpp"/>
+      <FILE id="VOzMht" name="AudioEffect.h" compile="0" resource="0" file="Source/AudioEffect.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
