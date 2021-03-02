@@ -33,6 +33,10 @@ private:
     MultiBandCompressorAudioProcessor& audioProcessor;
     
     juce::Slider ratioLow;
+    juce::Slider threshLow;
+    juce::Slider kneeLow;
+    juce::Slider attackLow;
+    juce::Slider releaseLow;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MultiBandCompressorAudioProcessorEditor)
 };
