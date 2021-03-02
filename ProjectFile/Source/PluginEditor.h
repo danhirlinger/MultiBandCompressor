@@ -32,11 +32,28 @@ private:
     // access the processor object that created it.
     MultiBandCompressorAudioProcessor& audioProcessor;
     
-    juce::Slider ratioLow;
     juce::Slider threshLow;
+    juce::Slider ratioLow;
     juce::Slider kneeLow;
     juce::Slider attackLow;
     juce::Slider releaseLow;
+    
+    juce::Slider threshMid;
+    juce::Slider ratioMid;
+    juce::Slider kneeMid;
+    juce::Slider attackMid;
+    juce::Slider releaseMid;
+    
+    juce::Slider threshHi;
+    juce::Slider ratioHi;
+    juce::Slider kneeHi;
+    juce::Slider attackHi;
+    juce::Slider releaseHi;
+    
+    
+    juce::LookAndFeel_V4 lowHiKnobColor;
+    juce::LookAndFeel_V4 midKnobColor;
+    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MultiBandCompressorAudioProcessorEditor)
 };
