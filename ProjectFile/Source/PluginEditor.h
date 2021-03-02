@@ -50,6 +50,7 @@ private:
     juce::Slider attackHi;
     juce::Slider releaseHi;
     
+    juce::Slider signalGain;
     
     juce::LookAndFeel_V4 lowHiKnobColor;
     juce::LookAndFeel_V4 midKnobColor;
