@@ -17,6 +17,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     lowHiKnobColor.setColour (juce::Slider::thumbColourId, juce::Colours::powderblue);
     midKnobColor.setColour (juce::Slider::thumbColourId, juce::Colours::white);
     midKnobTextColor.setColour (juce::Slider::textBoxTextColourId, juce::Colours::darkslategrey);
+    fValsColor.setColour (juce::Slider::textBoxBackgroundColourId, juce::Colours::black);
     // would like to figure out how to change color of meter; below did not work
 //    lowMeter.setColour (juce::Slider::thumbColourId, juce::Colours::green);
     
@@ -196,13 +197,28 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     addAndMakeVisible(signalGain);
     
     lowMidF.addListener(this);
-    lowMidF.setBounds(125, 30, 100, 30);
+    lowMidF.setBounds(144, 30, 100, 30);
     lowMidF.setRange(250.f,1000.f,.1f);
+    lowMidF.setValue(500.f);
+    lowMidF.setTextBoxStyle(juce::Slider::TextBoxAbove, false, 50, 20);
+    lowMidF.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    lowMidF.setSize(60,60);
+    lowMidF.setLookAndFeel(&fValsColor);
+    addAndMakeVisible(lowMidF);
+    
     // make slider invisible ???
     //addAndMakeVisible(lowMidF);
     
     
     midHiF.addListener(this);
+    midHiF.setBounds(306, 30, 100, 30);
+    midHiF.setRange(1500.f, 5000.f,.1f);
+    midHiF.setValue(2500.f);
+    midHiF.setTextBoxStyle(juce::Slider::TextBoxAbove, false, 50, 20);
+    midHiF.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    midHiF.setSize(60,60);
+    midHiF.setLookAndFeel(&fValsColor);
+    addAndMakeVisible(midHiF);
     //addAndMakeVisible(midHiF);
     
     // Meters
@@ -259,11 +275,11 @@ void MultiBandCompressorAudioProcessorEditor::paint (juce::Graphics& g)
     g.drawFittedText("Gain", 3, 540, 75,50, juce::Justification::centred, 1);
     
     // text for frequency band labels
-    g.setFont(20);
+    g.setFont(30);
     g.setColour(juce::Colours::powderblue);
-    g.drawFittedText("Low", 55, 15, 115, 50, juce::Justification::centred, 1);
-    g.drawFittedText("Hi", 365, 15, 115, 50, juce::Justification::centred, 1);
-    g.setColour(juce::Colours::darkred);
+    g.drawFittedText("Low", 40, 15, 115, 50, juce::Justification::centred, 1);
+    g.drawFittedText("Hi", 370, 15, 115, 50, juce::Justification::centred, 1);
+    g.setColour(juce::Colours::darkslategrey);
     g.drawFittedText("Mid", 200, 15, 115, 50, juce::Justification::centred, 1);
 
 }

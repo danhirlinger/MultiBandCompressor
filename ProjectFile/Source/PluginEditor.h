@@ -65,6 +65,7 @@ private:
     juce::LookAndFeel_V4 midKnobTextColor;
     juce::LookAndFeel_V4 lowHiTextBoxColor;
     juce::LookAndFeel_V4 midTextBoxColor;
+    juce::LookAndFeel_V4 fValsColor;
     
     
     // Frequency parameter text boxes
