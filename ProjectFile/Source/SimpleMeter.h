@@ -14,7 +14,7 @@
 
 // Class definition
 class SimpleMeter  : public juce::Component,
-                    private juce::Timer
+                     private juce::Timer
 {
 public:
     SimpleMeter()

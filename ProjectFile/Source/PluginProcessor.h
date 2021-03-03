@@ -55,9 +55,10 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    float lowMeter;
-    float midMeter;
-    float hiMeter;
+    float lowMeterVal;
+    float midMeterVal;
+    float hiMeterVal;
+    float gainMeterVal;
     
 private:
     

@@ -15,7 +15,10 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     setSize(500, 625);
     
     lowHiKnobColor.setColour (juce::Slider::thumbColourId, juce::Colours::powderblue);
-    midKnobColor.setColour (juce::Slider::thumbColourId, juce::Colours::darkred);
+    midKnobColor.setColour (juce::Slider::thumbColourId, juce::Colours::white);
+    midKnobTextColor.setColour (juce::Slider::textBoxTextColourId, juce::Colours::darkslategrey);
+    // would like to figure out how to change color of meter; below did not work
+//    lowMeter.setColour (juce::Slider::thumbColourId, juce::Colours::green);
     
     // --------------------------------------------------------------------
     // ---------------- KNOBS FOR LOWS ------------------------------------
@@ -82,6 +85,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     threshMid.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     threshMid.setSize(80,80);
     threshMid.setLookAndFeel(&midKnobColor);
+    threshMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(threshMid);
     
     ratioMid.addListener(this);
@@ -92,6 +96,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     ratioMid.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     ratioMid.setSize(80,80);
     ratioMid.setLookAndFeel(&midKnobColor);
+    ratioMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(ratioMid);
     
     kneeMid.addListener(this);
@@ -101,7 +106,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     kneeMid.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
     kneeMid.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     kneeMid.setSize(80,80);
-    kneeMid.setLookAndFeel(&midKnobColor);
+    kneeMid.setLookAndFeel(&midKnobColor); kneeMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(kneeMid);
     
     attackMid.addListener(this);
@@ -111,7 +116,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     attackMid.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
     attackMid.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     attackMid.setSize(80,80);
-    attackMid.setLookAndFeel(&midKnobColor);
+    attackMid.setLookAndFeel(&midKnobColor); attackMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(attackMid);
     
     releaseMid.addListener(this);
@@ -121,7 +126,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     releaseMid.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
     releaseMid.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     releaseMid.setSize(80,80);
-    releaseMid.setLookAndFeel(&midKnobColor);
+    releaseMid.setLookAndFeel(&midKnobColor);releaseMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(releaseMid);
     
     // --------------------------------------------------------------------
@@ -204,18 +209,22 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     lowMeter.setBounds(150, 100, 10, 400);
     lowMeter.configuration = SimpleMeter::VERTICAL;
     addAndMakeVisible(lowMeter);
+    startTimerHz(30);
     
     midMeter.setBounds(310,100,10,400);
     midMeter.configuration = SimpleMeter::VERTICAL;
     addAndMakeVisible(midMeter);
+    startTimerHz(30);
     
     hiMeter.setBounds(470,100,10,400);
     hiMeter.configuration = SimpleMeter::VERTICAL;
     addAndMakeVisible(hiMeter);
+    startTimerHz(30);
     
     gainMeter.setBounds(170,570,300,20);
     gainMeter.configuration = SimpleMeter::HORIZONTAL;
     addAndMakeVisible(gainMeter);
+    startTimerHz(30);
     
 }
 
@@ -227,8 +236,7 @@ MultiBandCompressorAudioProcessorEditor::~MultiBandCompressorAudioProcessorEdito
 void MultiBandCompressorAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // Establish background colors
-    auto baseColor = juce::Colours::powderblue;
-    baseColor = baseColor.darker(); baseColor = baseColor.darker(); baseColor = baseColor.darker();
+    auto baseColor = juce::Colours::darkslategrey;
     g.fillAll (baseColor);
     
     auto middleColor = juce::Colours::powderblue;
@@ -257,8 +265,7 @@ void MultiBandCompressorAudioProcessorEditor::paint (juce::Graphics& g)
     g.drawFittedText("Hi", 365, 15, 115, 50, juce::Justification::centred, 1);
     g.setColour(juce::Colours::darkred);
     g.drawFittedText("Mid", 200, 15, 115, 50, juce::Justification::centred, 1);
-    
-    // add label for gain knob
+
 }
 
 void MultiBandCompressorAudioProcessorEditor::resized()
@@ -275,8 +282,9 @@ void MultiBandCompressorAudioProcessorEditor::sliderValueChanged(juce::Slider * 
 }
 
 void MultiBandCompressorAudioProcessorEditor::timerCallback(){
-    lowMeter.update(audioProcessor.lowMeter);
-    midMeter.update(audioProcessor.midMeter);
-    hiMeter.update(audioProcessor.hiMeter);
+    lowMeter.update(audioProcessor.lowMeterVal);
+    midMeter.update(audioProcessor.midMeterVal);
+    hiMeter.update(audioProcessor.hiMeterVal);
+    gainMeter.update(audioProcessor.gainMeterVal);
     
 }

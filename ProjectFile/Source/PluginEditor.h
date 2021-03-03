@@ -29,7 +29,7 @@ public:
     void resized() override;
     
     void sliderValueChanged(juce::Slider * slider) override;
-
+    
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
@@ -62,6 +62,10 @@ private:
     // Design classes
     juce::LookAndFeel_V4 lowHiKnobColor;
     juce::LookAndFeel_V4 midKnobColor;
+    juce::LookAndFeel_V4 midKnobTextColor;
+    juce::LookAndFeel_V4 lowHiTextBoxColor;
+    juce::LookAndFeel_V4 midTextBoxColor;
+    
     
     // Frequency parameter text boxes
     juce::Slider lowMidF; // freq dividing low's and mid's
@@ -79,3 +83,5 @@ private:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MultiBandCompressorAudioProcessorEditor)
 };
+
+

@@ -139,19 +139,16 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     {
         for (int n = 0; n < buffer.getNumSamples(); n++){
             float x = buffer.getReadPointer(channel)[n];
-            lowMeter = vuAnalysis.processSample(x,channel);
-            midMeter = vuAnalysis.processSample(x,channel);
-            hiMeter = vuAnalysis.processSample(x, channel);
-            buffer.getWritePointer(channel)[n];
+            lowMeterVal = vuAnalysis.processSample(x,channel);
+            midMeterVal = vuAnalysis.processSample(x,channel);
+            hiMeterVal = vuAnalysis.processSample(x,channel);
+            gainMeterVal = vuAnalysis.processSample(x, channel);
             
             
 //            float y = compressor.processSample(x);
-            
             buffer.getWritePointer(channel)[n] = x;
         }
 
-
-        // ..do something to the data...
     }
 }
 
