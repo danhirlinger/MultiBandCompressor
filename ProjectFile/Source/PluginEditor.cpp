@@ -12,7 +12,6 @@
 MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor (MultiBandCompressorAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-
     setSize(500, 625);
     
     lowHiKnobColor.setColour (juce::Slider::thumbColourId, juce::Colours::powderblue);
@@ -183,7 +182,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     // --------------------------------------------------------------------
     
     signalGain.addListener(this);
-    signalGain.setBounds(217,530,170,170);
+    signalGain.setBounds(60,530,170,170);
     signalGain.setRange(-60.f,12.f,.1f);
     signalGain.setValue(0.f);
     signalGain.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -201,6 +200,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     midHiF.addListener(this);
     //addAndMakeVisible(midHiF);
     
+    // Meters
     lowMeter.setBounds(150, 100, 10, 400);
     lowMeter.configuration = SimpleMeter::VERTICAL;
     addAndMakeVisible(lowMeter);
@@ -213,7 +213,9 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     hiMeter.configuration = SimpleMeter::VERTICAL;
     addAndMakeVisible(hiMeter);
     
-    
+    gainMeter.setBounds(170,570,300,20);
+    gainMeter.configuration = SimpleMeter::HORIZONTAL;
+    addAndMakeVisible(gainMeter);
     
 }
 
@@ -238,14 +240,15 @@ void MultiBandCompressorAudioProcessorEditor::paint (juce::Graphics& g)
     g.fillRect(0,525,500,200);
     
     // draw text for knob labels (will appear on left side)
-    g.setFont(13);
+    g.setFont(14);
     g.setColour(juce::Colours::white);
     g.drawFittedText("Threshold", 3, 80, 75, 50, juce::Justification::centred, 1);
     g.drawFittedText("Ratio", 3, 175, 75, 50, juce::Justification::centred, 1);
     g.drawFittedText("Knee", 3, 260, 75, 50, juce::Justification::centred, 1);
     g.drawFittedText("Attack", 3, 355, 75, 50, juce::Justification::centred, 1);
     g.drawFittedText("Release", 3, 440, 75, 50, juce::Justification::centred, 1);
-    g.drawFittedText("Gain", 155, 550, 75,50, juce::Justification::centred, 1);
+    g.setFont(17);
+    g.drawFittedText("Gain", 3, 540, 75,50, juce::Justification::centred, 1);
     
     // text for frequency band labels
     g.setFont(20);
@@ -256,8 +259,6 @@ void MultiBandCompressorAudioProcessorEditor::paint (juce::Graphics& g)
     g.drawFittedText("Mid", 200, 15, 115, 50, juce::Justification::centred, 1);
     
     // add label for gain knob
-    
-
 }
 
 void MultiBandCompressorAudioProcessorEditor::resized()

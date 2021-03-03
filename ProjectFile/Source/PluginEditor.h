@@ -71,6 +71,8 @@ private:
     SimpleMeter lowMeter;
     SimpleMeter midMeter;
     SimpleMeter hiMeter;
+    
+    SimpleMeter gainMeter;
 
     void timerCallback() override;
     
