@@ -9,9 +9,9 @@
 */
 
 #pragma once
+
 #include "AudioEffect.h"
 // derived class from AudioEffect
-
 
 class Compressor : public AudioEffect
 {

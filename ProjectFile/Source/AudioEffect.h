@@ -16,12 +16,15 @@ class AudioEffect{
 
 public:
     
-    float processSample(float x);
+    virtual float processSample(float x) = 0; // pure virtual - must be implemented upon inheritance
     
     void prepare(float newFs);
     
     
-private:
+protected: // accessible in AudioEffect and derived classes
+    
     float Fs;
+    
+private: // only accessible in AudioEffect
     
 };

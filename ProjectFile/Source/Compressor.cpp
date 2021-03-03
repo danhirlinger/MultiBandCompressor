@@ -9,6 +9,7 @@
 */
 
 #include "Compressor.h"
+
 #include <tgmath.h>
 
 
@@ -44,6 +45,8 @@ float Compressor::compressSample(float data, float thresh, float ratio, float at
 //    return compressSample;
     return 0.0f;
 }
+
+
 
 
 

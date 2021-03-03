@@ -183,6 +183,13 @@
 			path = System/Library/Frameworks/Accelerate.framework;
 			sourceTree = SDKROOT;
 		};
+		08FED38E25E0103922ACE8EE = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = VUAnalysis.h;
+			path = ../../Source/VUAnalysis.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		13F48E51C6A6FCB97CE1F5A1 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -596,6 +603,13 @@
 			path = "~/JUCE/modules/juce_audio_basics";
 			sourceTree = "<absolute>";
 		};
+		F99B0D66955D3E3C6AA5B556 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = SimpleMeter.h;
+			path = ../../Source/SimpleMeter.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		F9F1E01A51C81DA962C95D70 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -623,6 +637,8 @@
 				6E378AA340028E34F5C2B954,
 				35876C6BF9AE7788BD380835,
 				8A9400471982971E97F4AC97,
+				F99B0D66955D3E3C6AA5B556,
+				08FED38E25E0103922ACE8EE,
 			);
 			name = Source;
 			sourceTree = "<group>";

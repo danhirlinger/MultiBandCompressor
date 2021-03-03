@@ -21,7 +21,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     // --------------------------------------------------------------------
     // ---------------- KNOBS FOR LOWS ------------------------------------
     threshLow.addListener(this);
-    threshLow.setBounds(75,65,150,150);
+    threshLow.setBounds(60,65,150,150);
     threshLow.setRange(-24.f,6.f,.1f); // dB
     threshLow.setValue(-24.f);
     threshLow.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -31,7 +31,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     addAndMakeVisible(threshLow);
     
     ratioLow.addListener(this);
-    ratioLow.setBounds(75,160,150,150);
+    ratioLow.setBounds(60,160,150,150);
     ratioLow.setRange(1.f, 100.f, .1f); // #:1 or something
     ratioLow.setValue(1.f);
     ratioLow.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -41,7 +41,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     addAndMakeVisible(ratioLow);
     
     kneeLow.addListener(this);
-    kneeLow.setBounds(75,245,150,150);
+    kneeLow.setBounds(60,245,150,150);
     kneeLow.setRange(0.f, 24.f, .1f); // figure out units of this value
     kneeLow.setValue(0.f);
     kneeLow.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -51,7 +51,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     addAndMakeVisible(kneeLow);
     
     attackLow.addListener(this);
-    attackLow.setBounds(75,340,150,150);
+    attackLow.setBounds(60,340,150,150);
     attackLow.setRange(0.1f, 1000.f, .1f); // ms
     attackLow.setValue(0.1f);
     attackLow.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -61,7 +61,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     addAndMakeVisible(attackLow);
     
     releaseLow.addListener(this);
-    releaseLow.setBounds(75,425,150,150);
+    releaseLow.setBounds(60,425,150,150);
     releaseLow.setRange(0.1f, 1000.f, .1f); // ms
     releaseLow.setValue(0.1f);
     releaseLow.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -73,8 +73,10 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     // --------------------------------------------------------------------
     // --------------------------------------------------------------------
     // --------------------- KNOBS FOR MIDS -------------------------------
+    
+    // change text color in the boxes
     threshMid.addListener(this);
-    threshMid.setBounds(217,65,150,150);
+    threshMid.setBounds(200,65,150,150);
     threshMid.setRange(-24.f,6.f,.1f); // dB
     threshMid.setValue(-24.f);
     threshMid.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -84,7 +86,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     addAndMakeVisible(threshMid);
     
     ratioMid.addListener(this);
-    ratioMid.setBounds(217,160,150,150);
+    ratioMid.setBounds(200,160,150,150);
     ratioMid.setRange(1.f, 100.f, .1f); // #:1 or something
     ratioMid.setValue(1.f);
     ratioMid.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -94,7 +96,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     addAndMakeVisible(ratioMid);
     
     kneeMid.addListener(this);
-    kneeMid.setBounds(217,245,150,150);
+    kneeMid.setBounds(200,245,150,150);
     kneeMid.setRange(0.f, 24.f, .1f); // figure out units of this value
     kneeMid.setValue(0.f);
     kneeMid.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -104,7 +106,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     addAndMakeVisible(kneeMid);
     
     attackMid.addListener(this);
-    attackMid.setBounds(217,340,150,150);
+    attackMid.setBounds(200,340,150,150);
     attackMid.setRange(0.1f, 1000.f, .1f); // ms
     attackMid.setValue(0.1f);
     attackMid.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -114,7 +116,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     addAndMakeVisible(attackMid);
     
     releaseMid.addListener(this);
-    releaseMid.setBounds(217,425,150,150);
+    releaseMid.setBounds(200,425,150,150);
     releaseMid.setRange(0.1f, 1000.f, .1f); // ms
     releaseMid.setValue(0.1f);
     releaseMid.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -128,7 +130,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     // --------------------------------------------------------------------
     // --------------------- KNOBS FOR HIS --------------------------------
     threshHi.addListener(this);
-    threshHi.setBounds(380,65,150,150);
+    threshHi.setBounds(365,65,150,150);
     threshHi.setRange(-24.f,6.f,.1f); // dB
     threshHi.setValue(-24.f);
     threshHi.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -138,7 +140,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     addAndMakeVisible(threshHi);
     
     ratioHi.addListener(this);
-    ratioHi.setBounds(380,160,150,150);
+    ratioHi.setBounds(365,160,150,150);
     ratioHi.setRange(1.f, 100.f, .1f); // #:1 or something
     ratioHi.setValue(1.f);
     ratioHi.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -148,7 +150,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     addAndMakeVisible(ratioHi);
     
     kneeHi.addListener(this);
-    kneeHi.setBounds(380,245,150,150);
+    kneeHi.setBounds(365,245,150,150);
     kneeHi.setRange(0.f, 24.f, .1f); // figure out units of this value
     kneeHi.setValue(0.f);
     kneeHi.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -158,7 +160,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     addAndMakeVisible(kneeHi);
     
     attackHi.addListener(this);
-    attackHi.setBounds(380,340,150,150);
+    attackHi.setBounds(365,340,150,150);
     attackHi.setRange(0.1f, 1000.f, .1f); // ms
     attackHi.setValue(0.1f);
     attackHi.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -168,7 +170,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     addAndMakeVisible(attackHi);
     
     releaseHi.addListener(this);
-    releaseHi.setBounds(380,425,150,150);
+    releaseHi.setBounds(365,425,150,150);
     releaseHi.setRange(0.1f, 1000.f, .1f); // ms
     releaseHi.setValue(0.1f);
     releaseHi.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
@@ -188,6 +190,29 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     signalGain.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     signalGain.setSize(90,90);
     addAndMakeVisible(signalGain);
+    
+    lowMidF.addListener(this);
+    lowMidF.setBounds(125, 30, 100, 30);
+    lowMidF.setRange(250.f,1000.f,.1f);
+    // make slider invisible ???
+    //addAndMakeVisible(lowMidF);
+    
+    
+    midHiF.addListener(this);
+    //addAndMakeVisible(midHiF);
+    
+    lowMeter.setBounds(150, 100, 10, 400);
+    lowMeter.configuration = SimpleMeter::VERTICAL;
+    addAndMakeVisible(lowMeter);
+    
+    midMeter.setBounds(310,100,10,400);
+    midMeter.configuration = SimpleMeter::VERTICAL;
+    addAndMakeVisible(midMeter);
+    
+    hiMeter.setBounds(470,100,10,400);
+    hiMeter.configuration = SimpleMeter::VERTICAL;
+    addAndMakeVisible(hiMeter);
+    
     
     
 }
@@ -213,13 +238,14 @@ void MultiBandCompressorAudioProcessorEditor::paint (juce::Graphics& g)
     g.fillRect(0,525,500,200);
     
     // draw text for knob labels (will appear on left side)
-    g.setFont(17);
+    g.setFont(13);
     g.setColour(juce::Colours::white);
-    g.drawFittedText("Threshold", 5, 80, 75, 50, juce::Justification::centred, 1);
-    g.drawFittedText("Ratio", 5, 175, 75, 50, juce::Justification::centred, 1);
-    g.drawFittedText("Knee", 5, 260, 75, 50, juce::Justification::centred, 1);
-    g.drawFittedText("Attack", 5, 355, 75, 50, juce::Justification::centred, 1);
-    g.drawFittedText("Release", 5, 440, 75, 50, juce::Justification::centred, 1);
+    g.drawFittedText("Threshold", 3, 80, 75, 50, juce::Justification::centred, 1);
+    g.drawFittedText("Ratio", 3, 175, 75, 50, juce::Justification::centred, 1);
+    g.drawFittedText("Knee", 3, 260, 75, 50, juce::Justification::centred, 1);
+    g.drawFittedText("Attack", 3, 355, 75, 50, juce::Justification::centred, 1);
+    g.drawFittedText("Release", 3, 440, 75, 50, juce::Justification::centred, 1);
+    g.drawFittedText("Gain", 155, 550, 75,50, juce::Justification::centred, 1);
     
     // text for frequency band labels
     g.setFont(20);
@@ -229,8 +255,7 @@ void MultiBandCompressorAudioProcessorEditor::paint (juce::Graphics& g)
     g.setColour(juce::Colours::darkred);
     g.drawFittedText("Mid", 200, 15, 115, 50, juce::Justification::centred, 1);
     
-    
-    
+    // add label for gain knob
     
 
 }
@@ -246,4 +271,11 @@ void MultiBandCompressorAudioProcessorEditor::sliderValueChanged(juce::Slider * 
     if (slider == &ratioLow){
        ;
     }
+}
+
+void MultiBandCompressorAudioProcessorEditor::timerCallback(){
+    lowMeter.update(audioProcessor.lowMeter);
+    midMeter.update(audioProcessor.midMeter);
+    hiMeter.update(audioProcessor.hiMeter);
+    
 }

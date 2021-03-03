@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "Compressor.h"
+#include "VUAnalysis.h"
 
 //==============================================================================
 /**
@@ -54,7 +55,14 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    float lowMeter;
+    float midMeter;
+    float hiMeter;
+    
 private:
+    
+    VUAnalysis vuAnalysis;
+    
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MultiBandCompressorAudioProcessor)
 };
