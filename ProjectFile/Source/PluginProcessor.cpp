@@ -8,7 +8,6 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-#include "Compressor.h"
 
 //==============================================================================
 MultiBandCompressorAudioProcessor::MultiBandCompressorAudioProcessor()
@@ -94,8 +93,16 @@ void MultiBandCompressorAudioProcessor::changeProgramName (int index, const juce
 //==============================================================================
 void MultiBandCompressorAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    spec.sampleRate = sampleRate;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.numChannels = 2;
+    
+    lowC.prepare(spec);
+    lowC.reset();
+//    compressor::prepareCompressor(lowC);
+    
+    
+    
 }
 
 void MultiBandCompressorAudioProcessor::releaseResources()
@@ -134,22 +141,36 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
+        float N = buffer.getNumSamples();
+        dsp::AudioBlock<float> block (buffer);
+        
+        block.multiplyBy(0.25f);
+        
+        lowC.process(dsp::ProcessContextReplacing<float> (block));
+        
+        block.copyTo(buffer);
+        
+        
+        
         for (int n = 0; n < buffer.getNumSamples(); n++){
             float x = buffer.getReadPointer(channel)[n];
-            lowMeterVal = vuAnalysis.processSample(x,channel);
-            midMeterVal = vuAnalysis.processSample(x,channel);
-            hiMeterVal = vuAnalysis.processSample(x,channel);
-            gainMeterVal = vuAnalysis.processSample(x, channel);
             
-            
+            // get meter values...although i need to do this for each buffer...?
+            // answer: change "buffer" to whatever i need
+            lowMeterVal = MBC.getMeterVals(buffer, channel, n, N);
+            midMeterVal = MBC.getMeterVals(buffer, channel, n, N);
+            hiMeterVal = MBC.getMeterVals(buffer, channel, n, N);
+            gainMeterVal = MBC.getMeterVals(buffer, channel, n, N);
+
+//
 //            float y = compressor.processSample(x);
-            buffer.getWritePointer(channel)[n] = x;
+//            buffer.getWritePointer(channel)[n] = x;
         }
 
     }
+    
 }
 
 //==============================================================================

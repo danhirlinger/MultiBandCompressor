@@ -54,4 +54,9 @@ float Compressor::compressSample(float data, float thresh, float ratio, float at
 //    thresh = newThresh;
 //}
 
-
+void prepareCompressor(class dsp::Compressor<float> compressor){
+    compressor.setThreshold(0.f);
+    compressor.setRatio(1.f);
+    compressor.setAttack(1.f);
+    compressor.setRelease(0.5f);
+}

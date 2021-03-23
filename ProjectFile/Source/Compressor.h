@@ -11,6 +11,7 @@
 #pragma once
 
 #include "AudioEffect.h"
+#include <JuceHeader.h>
 // derived class from AudioEffect
 
 class Compressor : public AudioEffect
@@ -20,11 +21,16 @@ public:
     float compressSample(float data, float thresh, float ratio, float attack, float release, float knee);
     void setCompressorThresh(float newThresh);
     
+    void prepareCompressor(class dsp::Compressor<float> compressor);
+    
 private:
     
     float thresh = 0.f;
-//    CircularBuffer buffer; need to learn about this
+//    CircularBuffer buffer; need to learn about this ???
     float tav;
     float rms;
     float gain;
+    
+
+    
 };

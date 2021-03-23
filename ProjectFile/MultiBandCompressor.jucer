@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="K6RQhX" name="MultiBandCompressor" projectType="audioplug"
-              useAppConfig="0" addUsingNamespaceToJuceHeader="0" displaySplashScreen="1"
-              jucerFormatVersion="1">
+              useAppConfig="0" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="gfkxqN" name="MultiBandCompressor">
     <GROUP id="{55B6FE8E-4836-85C5-A048-FE9826B19842}" name="Source">
-      <FILE id="V2pAgA" name="MultiBand.cpp" compile="1" resource="0" file="Source/MultiBand.cpp"/>
-      <FILE id="DkMdSJ" name="MultiBand.h" compile="0" resource="0" file="Source/MultiBand.h"/>
+      <FILE id="V2pAgA" name="MultiBandComp.cpp" compile="1" resource="0"
+            file="Source/MultiBandComp.cpp"/>
+      <FILE id="DkMdSJ" name="MultiBandComp.h" compile="0" resource="0" file="Source/MultiBandComp.h"/>
       <FILE id="OgVZC0" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="onJKIs" name="PluginProcessor.h" compile="0" resource="0"
@@ -20,6 +20,8 @@
       <FILE id="VOzMht" name="AudioEffect.h" compile="0" resource="0" file="Source/AudioEffect.h"/>
       <FILE id="a0q9Gy" name="SimpleMeter.h" compile="0" resource="0" file="Source/SimpleMeter.h"/>
       <FILE id="ytLaBu" name="VUAnalysis.h" compile="0" resource="0" file="Source/VUAnalysis.h"/>
+      <FILE id="PqdkHd" name="Biquad.cpp" compile="1" resource="0" file="Source/Biquad.cpp"/>
+      <FILE id="CceZpJ" name="Biquad.h" compile="0" resource="0" file="Source/Biquad.h"/>
       <FILE id="ukrjQ3" name="CircularBuffer.cpp" compile="1" resource="0"
             file="Source/CircularBuffer.cpp"/>
       <FILE id="zrciwT" name="CircularBuffer.h" compile="0" resource="0"
@@ -46,6 +48,7 @@
         <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
@@ -59,6 +62,7 @@
     <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

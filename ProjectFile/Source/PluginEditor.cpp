@@ -14,10 +14,10 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
 {
     setSize(500, 625);
     
-    lowHiKnobColor.setColour (juce::Slider::thumbColourId, juce::Colours::powderblue);
-    midKnobColor.setColour (juce::Slider::thumbColourId, juce::Colours::white);
-    midKnobTextColor.setColour (juce::Slider::textBoxTextColourId, juce::Colours::darkslategrey);
-    fValsColor.setColour (juce::Slider::textBoxBackgroundColourId, juce::Colours::black);
+    lowHiKnobColor.setColour (Slider::thumbColourId, Colours::powderblue);
+    midKnobColor.setColour (Slider::thumbColourId, Colours::white);
+    midKnobTextColor.setColour (Slider::textBoxTextColourId, Colours::darkslategrey);
+    fValsColor.setColour (Slider::textBoxBackgroundColourId, Colours::black);
     // would like to figure out how to change color of meter; below did not work
 //    lowMeter.setColour (juce::Slider::thumbColourId, juce::Colours::green);
     
@@ -27,8 +27,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     threshLow.setBounds(60,65,150,150);
     threshLow.setRange(-24.f,6.f,.1f); // dB
     threshLow.setValue(-24.f);
-    threshLow.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    threshLow.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    threshLow.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    threshLow.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     threshLow.setSize(80,80);
     threshLow.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(threshLow);
@@ -37,8 +37,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     ratioLow.setBounds(60,160,150,150);
     ratioLow.setRange(1.f, 100.f, .1f); // #:1 or something
     ratioLow.setValue(1.f);
-    ratioLow.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    ratioLow.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    ratioLow.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    ratioLow.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     ratioLow.setSize(80,80);
     ratioLow.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(ratioLow);
@@ -47,8 +47,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     kneeLow.setBounds(60,245,150,150);
     kneeLow.setRange(0.f, 24.f, .1f); // figure out units of this value
     kneeLow.setValue(0.f);
-    kneeLow.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    kneeLow.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    kneeLow.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    kneeLow.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     kneeLow.setSize(80,80);
     kneeLow.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(kneeLow);
@@ -57,8 +57,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     attackLow.setBounds(60,340,150,150);
     attackLow.setRange(0.1f, 1000.f, .1f); // ms
     attackLow.setValue(0.1f);
-    attackLow.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    attackLow.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    attackLow.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    attackLow.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     attackLow.setSize(80,80);
     attackLow.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(attackLow);
@@ -67,8 +67,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     releaseLow.setBounds(60,425,150,150);
     releaseLow.setRange(0.1f, 1000.f, .1f); // ms
     releaseLow.setValue(0.1f);
-    releaseLow.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    releaseLow.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    releaseLow.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    releaseLow.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     releaseLow.setSize(80,80);
     releaseLow.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(releaseLow);
@@ -82,8 +82,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     threshMid.setBounds(200,65,150,150);
     threshMid.setRange(-24.f,6.f,.1f); // dB
     threshMid.setValue(-24.f);
-    threshMid.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    threshMid.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    threshMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    threshMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     threshMid.setSize(80,80);
     threshMid.setLookAndFeel(&midKnobColor);
     threshMid.setLookAndFeel(&midKnobTextColor);
@@ -93,8 +93,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     ratioMid.setBounds(200,160,150,150);
     ratioMid.setRange(1.f, 100.f, .1f); // #:1 or something
     ratioMid.setValue(1.f);
-    ratioMid.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    ratioMid.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    ratioMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    ratioMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     ratioMid.setSize(80,80);
     ratioMid.setLookAndFeel(&midKnobColor);
     ratioMid.setLookAndFeel(&midKnobTextColor);
@@ -104,8 +104,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     kneeMid.setBounds(200,245,150,150);
     kneeMid.setRange(0.f, 24.f, .1f); // figure out units of this value
     kneeMid.setValue(0.f);
-    kneeMid.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    kneeMid.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    kneeMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    kneeMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     kneeMid.setSize(80,80);
     kneeMid.setLookAndFeel(&midKnobColor); kneeMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(kneeMid);
@@ -114,8 +114,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     attackMid.setBounds(200,340,150,150);
     attackMid.setRange(0.1f, 1000.f, .1f); // ms
     attackMid.setValue(0.1f);
-    attackMid.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    attackMid.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    attackMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    attackMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     attackMid.setSize(80,80);
     attackMid.setLookAndFeel(&midKnobColor); attackMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(attackMid);
@@ -124,8 +124,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     releaseMid.setBounds(200,425,150,150);
     releaseMid.setRange(0.1f, 1000.f, .1f); // ms
     releaseMid.setValue(0.1f);
-    releaseMid.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    releaseMid.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    releaseMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    releaseMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     releaseMid.setSize(80,80);
     releaseMid.setLookAndFeel(&midKnobColor);releaseMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(releaseMid);
@@ -138,8 +138,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     threshHi.setBounds(365,65,150,150);
     threshHi.setRange(-24.f,6.f,.1f); // dB
     threshHi.setValue(-24.f);
-    threshHi.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    threshHi.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    threshHi.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    threshHi.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     threshHi.setSize(80,80);
     threshHi.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(threshHi);
@@ -148,8 +148,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     ratioHi.setBounds(365,160,150,150);
     ratioHi.setRange(1.f, 100.f, .1f); // #:1 or something
     ratioHi.setValue(1.f);
-    ratioHi.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    ratioHi.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    ratioHi.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    ratioHi.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     ratioHi.setSize(80,80);
     ratioHi.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(ratioHi);
@@ -158,8 +158,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     kneeHi.setBounds(365,245,150,150);
     kneeHi.setRange(0.f, 24.f, .1f); // figure out units of this value
     kneeHi.setValue(0.f);
-    kneeHi.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    kneeHi.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    kneeHi.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    kneeHi.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     kneeHi.setSize(80,80);
     kneeHi.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(kneeHi);
@@ -168,8 +168,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     attackHi.setBounds(365,340,150,150);
     attackHi.setRange(0.1f, 1000.f, .1f); // ms
     attackHi.setValue(0.1f);
-    attackHi.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    attackHi.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    attackHi.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    attackHi.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     attackHi.setSize(80,80);
     attackHi.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(attackHi);
@@ -178,8 +178,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     releaseHi.setBounds(365,425,150,150);
     releaseHi.setRange(0.1f, 1000.f, .1f); // ms
     releaseHi.setValue(0.1f);
-    releaseHi.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    releaseHi.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    releaseHi.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    releaseHi.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     releaseHi.setSize(80,80);
     releaseHi.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(releaseHi);
@@ -191,8 +191,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     signalGain.setBounds(60,530,170,170);
     signalGain.setRange(-60.f,12.f,.1f);
     signalGain.setValue(0.f);
-    signalGain.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
-    signalGain.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    signalGain.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    signalGain.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     signalGain.setSize(90,90);
     addAndMakeVisible(signalGain);
     
@@ -200,8 +200,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     lowMidF.setBounds(144, 30, 100, 30);
     lowMidF.setRange(250.f,1000.f,.1f);
     lowMidF.setValue(500.f);
-    lowMidF.setTextBoxStyle(juce::Slider::TextBoxAbove, false, 50, 20);
-    lowMidF.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    lowMidF.setTextBoxStyle(Slider::TextBoxAbove, false, 50, 20);
+    lowMidF.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     lowMidF.setSize(60,60);
     lowMidF.setLookAndFeel(&fValsColor);
     addAndMakeVisible(lowMidF);
@@ -214,8 +214,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     midHiF.setBounds(306, 30, 100, 30);
     midHiF.setRange(1500.f, 5000.f,.1f);
     midHiF.setValue(2500.f);
-    midHiF.setTextBoxStyle(juce::Slider::TextBoxAbove, false, 50, 20);
-    midHiF.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    midHiF.setTextBoxStyle(Slider::TextBoxAbove, false, 50, 20);
+    midHiF.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     midHiF.setSize(60,60);
     midHiF.setLookAndFeel(&fValsColor);
     addAndMakeVisible(midHiF);
@@ -249,38 +249,38 @@ MultiBandCompressorAudioProcessorEditor::~MultiBandCompressorAudioProcessorEdito
 }
 
 //==============================================================================
-void MultiBandCompressorAudioProcessorEditor::paint (juce::Graphics& g)
+void MultiBandCompressorAudioProcessorEditor::paint (Graphics& g)
 {
     // Establish background colors
-    auto baseColor = juce::Colours::darkslategrey;
+    auto baseColor = Colours::darkslategrey;
     g.fillAll (baseColor);
     
-    auto middleColor = juce::Colours::powderblue;
+    auto middleColor = Colours::powderblue;
     g.setColour(middleColor);
     g.fillRect(175, 0, 160, 525);
     
-    auto bottomColor = juce::Colours::grey;
+    auto bottomColor = Colours::grey;
     g.setColour(bottomColor);
     g.fillRect(0,525,500,200);
     
     // draw text for knob labels (will appear on left side)
     g.setFont(14);
-    g.setColour(juce::Colours::white);
-    g.drawFittedText("Threshold", 3, 80, 75, 50, juce::Justification::centred, 1);
-    g.drawFittedText("Ratio", 3, 175, 75, 50, juce::Justification::centred, 1);
-    g.drawFittedText("Knee", 3, 260, 75, 50, juce::Justification::centred, 1);
-    g.drawFittedText("Attack", 3, 355, 75, 50, juce::Justification::centred, 1);
-    g.drawFittedText("Release", 3, 440, 75, 50, juce::Justification::centred, 1);
+    g.setColour(Colours::white);
+    g.drawFittedText("Threshold", 3, 80, 75, 50, Justification::centred, 1);
+    g.drawFittedText("Ratio", 3, 175, 75, 50, Justification::centred, 1);
+    g.drawFittedText("Knee", 3, 260, 75, 50, Justification::centred, 1);
+    g.drawFittedText("Attack", 3, 355, 75, 50, Justification::centred, 1);
+    g.drawFittedText("Release", 3, 440, 75, 50, Justification::centred, 1);
     g.setFont(17);
-    g.drawFittedText("Gain", 3, 540, 75,50, juce::Justification::centred, 1);
+    g.drawFittedText("Gain", 3, 540, 75,50, Justification::centred, 1);
     
     // text for frequency band labels
     g.setFont(30);
-    g.setColour(juce::Colours::powderblue);
-    g.drawFittedText("Low", 40, 15, 115, 50, juce::Justification::centred, 1);
-    g.drawFittedText("Hi", 370, 15, 115, 50, juce::Justification::centred, 1);
-    g.setColour(juce::Colours::darkslategrey);
-    g.drawFittedText("Mid", 200, 15, 115, 50, juce::Justification::centred, 1);
+    g.setColour(Colours::powderblue);
+    g.drawFittedText("Low", 40, 15, 115, 50, Justification::centred, 1);
+    g.drawFittedText("Hi", 370, 15, 115, 50, Justification::centred, 1);
+    g.setColour(Colours::darkslategrey);
+    g.drawFittedText("Mid", 200, 15, 115, 50, Justification::centred, 1);
 
 }
 

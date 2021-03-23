@@ -15,9 +15,9 @@
 //==============================================================================
 /**
 */
-class MultiBandCompressorAudioProcessorEditor  : public juce::AudioProcessorEditor,
-                                                 public juce::Slider::Listener,
-                                                 public juce::Timer
+class MultiBandCompressorAudioProcessorEditor  : public AudioProcessorEditor,
+                                                 public Slider::Listener,
+                                                 public Timer
 
 {
 public:
@@ -25,10 +25,10 @@ public:
     ~MultiBandCompressorAudioProcessorEditor() override;
 
     //==============================================================================
-    void paint (juce::Graphics&) override;
+    void paint (Graphics&) override;
     void resized() override;
     
-    void sliderValueChanged(juce::Slider * slider) override;
+    void sliderValueChanged(Slider * slider) override;
     
 private:
     // This reference is provided as a quick way for your editor to
@@ -36,41 +36,41 @@ private:
     MultiBandCompressorAudioProcessor& audioProcessor;
     
     // Low knobs
-    juce::Slider threshLow;
-    juce::Slider ratioLow;
-    juce::Slider kneeLow;
-    juce::Slider attackLow;
-    juce::Slider releaseLow;
+    Slider threshLow;
+    Slider ratioLow;
+    Slider kneeLow;
+    Slider attackLow;
+    Slider releaseLow;
     
     // Mid knobs
-    juce::Slider threshMid;
-    juce::Slider ratioMid;
-    juce::Slider kneeMid;
-    juce::Slider attackMid;
-    juce::Slider releaseMid;
+    Slider threshMid;
+    Slider ratioMid;
+    Slider kneeMid;
+    Slider attackMid;
+    Slider releaseMid;
     
     // Hi knobs
-    juce::Slider threshHi;
-    juce::Slider ratioHi;
-    juce::Slider kneeHi;
-    juce::Slider attackHi;
-    juce::Slider releaseHi;
+    Slider threshHi;
+    Slider ratioHi;
+    Slider kneeHi;
+    Slider attackHi;
+    Slider releaseHi;
     
     // Overall knobs
-    juce::Slider signalGain;
+    Slider signalGain;
     
     // Design classes
-    juce::LookAndFeel_V4 lowHiKnobColor;
-    juce::LookAndFeel_V4 midKnobColor;
-    juce::LookAndFeel_V4 midKnobTextColor;
-    juce::LookAndFeel_V4 lowHiTextBoxColor;
-    juce::LookAndFeel_V4 midTextBoxColor;
-    juce::LookAndFeel_V4 fValsColor;
+    LookAndFeel_V4 lowHiKnobColor;
+    LookAndFeel_V4 midKnobColor;
+    LookAndFeel_V4 midKnobTextColor;
+    LookAndFeel_V4 lowHiTextBoxColor;
+    LookAndFeel_V4 midTextBoxColor;
+    LookAndFeel_V4 fValsColor;
     
     
     // Frequency parameter text boxes
-    juce::Slider lowMidF; // freq dividing low's and mid's
-    juce::Slider midHiF; // freq dividing mid's and high's
+    Slider lowMidF; // freq dividing low's and mid's
+    Slider midHiF; // freq dividing mid's and high's
     
     // Meters
     SimpleMeter lowMeter;

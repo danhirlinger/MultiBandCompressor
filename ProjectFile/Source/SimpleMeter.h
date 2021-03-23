@@ -23,9 +23,9 @@ public:
     }
     
     //==============================================================================
-    void paint (juce::Graphics& g) override
+    void paint (Graphics& g) override
     {
-        g.fillAll (juce::Colours::transparentBlack);
+        g.fillAll (Colours::transparentBlack);
         
         auto area = g.getClipBounds();
         

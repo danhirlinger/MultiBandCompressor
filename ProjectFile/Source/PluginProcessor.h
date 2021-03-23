@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "Compressor.h"
 #include "VUAnalysis.h"
+#include "MultiBandComp.h"
 
 //==============================================================================
 /**
@@ -63,6 +64,12 @@ public:
 private:
     
     VUAnalysis vuAnalysis;
+    
+    MultiBandComp MBC;
+    
+    dsp::ProcessSpec spec;
+    dsp::Compressor<float> lowC;
+
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MultiBandCompressorAudioProcessor)
