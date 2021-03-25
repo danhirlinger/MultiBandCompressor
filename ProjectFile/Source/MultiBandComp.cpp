@@ -16,28 +16,45 @@ MultiBandComp::MultiBandComp(){
 }
 
 
-void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer){
+void MultiBandComp::processBlock(juce::AudioBuffer<float> buffer, float Fs){
     // pass in buffer
     
     // run splitBlock() to get individual buffers of L,M,H
     
-    // processBand() 3 times for each band
-    // processBand()
-    // processBand()
+    
+    // processBand() L
+    // processBand() M
+    // processBand() H
+    
+    // getMeterVals(); for each band
     
     // rebuildBlock();
     
-}
-
-void MultiBandComp::splitBlock(){
-    
-    // take buffer and split based on input parameter(?)
+    // getMeterVals(); for final processed signal
     
 }
 
-void MultiBandComp::processBand(){
+void MultiBandComp::splitBlock(juce::AudioBuffer<float> buffer, float Fs){
+    
+    // take buffer and split based on input parameters
+    // use functions from Biquad
+    
+    
+    setParameters(Fs, lowMidF, midHiF, Biquad::LPF);
+    
+    BQ.processBlock(buffer);
+    // need this to write into a variable, not just process ???????
+    setParameters(Fs, lowMidF, midHiF, Biquad::BPF1);
+    // processBlock()
+    setParameters(Fs, lowMidF, midHiF, Biquad::HPF);
+    // processBlock()
+    
+}
+
+void MultiBandComp::processBand(float t, float ratio, float a, float rel){
     
     // process band based on respective compressor parameters
+    // dsp::Compressor
 }
 
 void MultiBandComp::rebuildBlock(){
@@ -45,7 +62,7 @@ void MultiBandComp::rebuildBlock(){
     // combine together processed bands into an audioBlock
 }
 
-float MultiBandComp::getMeterVals(juce::AudioBuffer<float> &buffer, int c, int n, const int N){
+float MultiBandComp::getMeterVals(juce::AudioBuffer<float> buffer, int c, int n, const int N){
     
 //    for (int n = 0; n < N; n++){
         float x = buffer.getReadPointer(c)[n];
@@ -53,9 +70,20 @@ float MultiBandComp::getMeterVals(juce::AudioBuffer<float> &buffer, int c, int n
         return meterVals;
 //    }
     
-    // obtain values of buffer for the meter
-    // need for meters of L,M,H, and overall
     
 }
 
-
+void MultiBandComp::setParameters(double newFs, double newLMFreq, double newMHFreq, Biquad::FilterType filterTypeParam){
+    BQ.setFs(newFs);
+    if (filterTypeParam == Biquad::LPF){
+        biquadFreq = newLMFreq;
+        BQ.setFilterType(filterTypeParam);
+    } else if (filterTypeParam == Biquad::HPF){
+        biquadFreq = newMHFreq;
+        BQ.setFilterType(filterTypeParam);
+    } else if (filterTypeParam == Biquad::BPF1){
+        // need to establish a "center" frequency for BPF
+        biquadFreq = (newLMFreq + newMHFreq) / 2.f;
+        BQ.setFilterType(filterTypeParam);
+    }
+}

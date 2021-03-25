@@ -165,7 +165,7 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
             gainMeterVal = MBC.getMeterVals(buffer, channel, n, N);
 
 //
-//            float y = compressor.processSample(x);
+//            float y = compressor.process(x);
 //            buffer.getWritePointer(channel)[n] = x;
         }
 

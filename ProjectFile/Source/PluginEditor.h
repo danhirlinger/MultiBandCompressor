@@ -38,21 +38,21 @@ private:
     // Low knobs
     Slider threshLow;
     Slider ratioLow;
-    Slider kneeLow;
+//    Slider kneeLow;
     Slider attackLow;
     Slider releaseLow;
     
     // Mid knobs
     Slider threshMid;
     Slider ratioMid;
-    Slider kneeMid;
+//    Slider kneeMid;
     Slider attackMid;
     Slider releaseMid;
     
     // Hi knobs
     Slider threshHi;
     Slider ratioHi;
-    Slider kneeHi;
+//    Slider kneeHi;
     Slider attackHi;
     Slider releaseHi;
     

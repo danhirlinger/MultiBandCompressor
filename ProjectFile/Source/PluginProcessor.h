@@ -9,7 +9,6 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "Compressor.h"
 #include "VUAnalysis.h"
 #include "MultiBandComp.h"
 
