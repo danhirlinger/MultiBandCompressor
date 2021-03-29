@@ -19,18 +19,17 @@ void MultiBandComp::prepareMBC(juce::AudioBuffer<float> &buffer, int c){
     lowBuffer.setSize(c, bufferLength);
     midBuffer.setSize(c, bufferLength);
     hiBuffer.setSize(c, bufferLength);
-
 }
+
 void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
-    // pass in buffer
     int c = buffer.getNumChannels();
+    prepareMBC(buffer, c);
+    // pass in buffer
+    
     // run splitBlock() to get individual buffers of L,M,H
     splitBlock(buffer,Fs,c);
 
-    // processBand() L
-    // processBand() M
-    // processBand() H
-    
+    // process each band based on compression values
     processBand(lowBuffer, c, threshLow, ratioLow, attackLow, releaseLow);
     processBand(midBuffer, c, threshMid, ratioMid, attackMid, releaseMid);
     processBand(hiBuffer, c, threshHi, ratioHi, attackHi, releaseHi);
@@ -40,9 +39,11 @@ void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
     getMeterVals(midBuffer, c, bufferLength);
     getMeterVals(hiBuffer, c, bufferLength);
     
-    // rebuildBlock();
+    rebuildBlock(c);
     
     // getMeterVals(); for final processed signal
+    getMeterVals(finalBuffer, c, bufferLength);
+    
 }
 
 void MultiBandComp::splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c){
@@ -78,7 +79,8 @@ void MultiBandComp::processBand(juce::AudioBuffer<float> &buffer, int c, float t
     
     for (int channel = 0; channel < c; channel++) {
         for (int n = 0; n < bufferLength; n++) {
-            COMP.processSample(channel, buffer.getSample(channel, n));
+            float x = buffer.getSample(channel, n);
+            COMP.processSample(channel, x);
             // having error with JUCE DSP.....
         }
     }
