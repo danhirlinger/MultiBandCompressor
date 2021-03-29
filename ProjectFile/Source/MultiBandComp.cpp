@@ -12,16 +12,21 @@
 
 MultiBandComp::MultiBandComp(){
     
-    
 }
 
+void MultiBandComp::prepareMBC(juce::AudioBuffer<float> &buffer, int c){
+    bufferLength = buffer.getNumSamples();
+    lowBuffer.setSize(c, bufferLength);
+    midBuffer.setSize(c, bufferLength);
+    hiBuffer.setSize(c, bufferLength);
 
-void MultiBandComp::processBlock(juce::AudioBuffer<float> buffer, float Fs){
+}
+void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
     // pass in buffer
-    
+    int c = buffer.getNumChannels();
     // run splitBlock() to get individual buffers of L,M,H
-    
-    
+    splitBlock(buffer,Fs,c);
+
     // processBand() L
     // processBand() M
     // processBand() H
@@ -31,38 +36,44 @@ void MultiBandComp::processBlock(juce::AudioBuffer<float> buffer, float Fs){
     // rebuildBlock();
     
     // getMeterVals(); for final processed signal
-    
 }
 
-void MultiBandComp::splitBlock(juce::AudioBuffer<float> buffer, float Fs){
+void MultiBandComp::splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c){
     
     // take buffer and split based on input parameters
     // use functions from Biquad
+
+    for (int n = 1; n < c; n++){
+        lowBuffer.copyFrom(c, 1, buffer, c, 1, bufferLength);
+        midBuffer.copyFrom(c, 0, buffer, c, 0, bufferLength);
+        hiBuffer.copyFrom(c, 0, buffer, c, 0, bufferLength);
+    }
     
+    setBQParameters(Fs, lowMidF, midHiF, Biquad::LPF);
+    BQ.processBlock(lowBuffer);
     
-    setParameters(Fs, lowMidF, midHiF, Biquad::LPF);
+    setBQParameters(Fs, lowMidF, midHiF, Biquad::BPF1);
+    BQ.processBlock(midBuffer);
     
-    BQ.processBlock(buffer);
-    // need this to write into a variable, not just process ???????
-    setParameters(Fs, lowMidF, midHiF, Biquad::BPF1);
-    // processBlock()
-    setParameters(Fs, lowMidF, midHiF, Biquad::HPF);
-    // processBlock()
-    
+    setBQParameters(Fs, lowMidF, midHiF, Biquad::HPF);
+    BQ.processBlock(hiBuffer);
 }
 
-void MultiBandComp::processBand(float t, float ratio, float a, float rel){
+void MultiBandComp::processBand(juce::AudioBuffer<float> &buffer, float t, float ratio, float a, float rel){
     
     // process band based on respective compressor parameters
     // dsp::Compressor
+    
 }
 
 void MultiBandComp::rebuildBlock(){
 
     // combine together processed bands into an audioBlock
+    
+    // add together by sample?
 }
 
-float MultiBandComp::getMeterVals(juce::AudioBuffer<float> buffer, int c, int n, const int N){
+float MultiBandComp::getMeterVals(juce::AudioBuffer<float> &buffer, int c, int n, const int N){
     
 //    for (int n = 0; n < N; n++){
         float x = buffer.getReadPointer(c)[n];
@@ -73,7 +84,7 @@ float MultiBandComp::getMeterVals(juce::AudioBuffer<float> buffer, int c, int n,
     
 }
 
-void MultiBandComp::setParameters(double newFs, double newLMFreq, double newMHFreq, Biquad::FilterType filterTypeParam){
+void MultiBandComp::setBQParameters(double newFs, double newLMFreq, double newMHFreq, Biquad::FilterType filterTypeParam){
     BQ.setFs(newFs);
     if (filterTypeParam == Biquad::LPF){
         biquadFreq = newLMFreq;
@@ -87,3 +98,17 @@ void MultiBandComp::setParameters(double newFs, double newLMFreq, double newMHFr
         BQ.setFilterType(filterTypeParam);
     }
 }
+
+void setCParameters(float newT, float newRatio, float newA, float newRel){
+    
+    // do i need this?? i think so...
+    // or just put the variables through processBand()....
+    
+}
+
+
+
+
+
+// buffer.addFrom() to merge buffers together
+// then buffer.copyFrom(), using processed buffer as source buffer

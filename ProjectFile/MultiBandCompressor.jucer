@@ -14,18 +14,12 @@
       <FILE id="gY72tl" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="IVbxcC" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <FILE id="WJpQIo" name="Compressor.cpp" compile="1" resource="0" file="Source/Compressor.cpp"/>
-      <FILE id="Xgxy1b" name="Compressor.h" compile="0" resource="0" file="Source/Compressor.h"/>
       <FILE id="zAav3d" name="AudioEffect.cpp" compile="1" resource="0" file="Source/AudioEffect.cpp"/>
       <FILE id="VOzMht" name="AudioEffect.h" compile="0" resource="0" file="Source/AudioEffect.h"/>
       <FILE id="a0q9Gy" name="SimpleMeter.h" compile="0" resource="0" file="Source/SimpleMeter.h"/>
       <FILE id="ytLaBu" name="VUAnalysis.h" compile="0" resource="0" file="Source/VUAnalysis.h"/>
       <FILE id="PqdkHd" name="Biquad.cpp" compile="1" resource="0" file="Source/Biquad.cpp"/>
       <FILE id="CceZpJ" name="Biquad.h" compile="0" resource="0" file="Source/Biquad.h"/>
-      <FILE id="ukrjQ3" name="CircularBuffer.cpp" compile="1" resource="0"
-            file="Source/CircularBuffer.cpp"/>
-      <FILE id="zrciwT" name="CircularBuffer.h" compile="0" resource="0"
-            file="Source/CircularBuffer.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
