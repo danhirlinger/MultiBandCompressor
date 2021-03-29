@@ -34,6 +34,25 @@ public:
     void setBQParameters(double newFs, double newLMFreq, double newMHFreq, Biquad::FilterType filterTypeParam); // set the filters parameters of the particular band
     void setCParameters(float newT, float newRatio, float newA, float newRel);
     
+    float threshLow = 0.f;
+    float ratioLow = 1.f; // Q
+//    float kneeLow;
+    float attackLow = 1.f;
+    float releaseLow = 1.f;
+    
+    // Mid knobs
+    float threshMid = 0.f;
+    float ratioMid = 1.f; // Q
+//    float kneeMid;
+    float attackMid = 1.f;
+    float releaseMid = 1.f;
+    
+    // Hi knobs
+    float threshHi = 0.f;
+    float ratioHi = 1.f; // Q
+//    float kneeHi;
+    float attackHi = 1.f;
+    float releaseHi = 1.f;
     
 private:
     
@@ -50,25 +69,7 @@ private:
     float biquadFreq; // value dependent upon filter type
     
     // Low knobs
-    float threshLow;
-    float ratioLow; // Q
-    float kneeLow;
-    float attackLow;
-    float releaseLow;
     
-    // Mid knobs
-    float threshMid;
-    float ratioMid; // Q
-    float kneeMid;
-    float attackMid;
-    float releaseMid;
-    
-    // Hi knobs
-    float threshHi;
-    float ratioHi; // Q
-    float kneeHi;
-    float attackHi;
-    float releaseHi;
     
     // Overall knobs
     float signalGain;

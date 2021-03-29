@@ -31,6 +31,10 @@ void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
     // processBand() M
     // processBand() H
     
+    processBand(lowBuffer, c, threshLow, ratioLow, attackLow, releaseLow);
+    processBand(midBuffer, c, threshMid, ratioMid, attackMid, releaseMid);
+    processBand(hiBuffer, c, threshHi, ratioHi, attackHi, releaseHi);
+    
     // getMeterVals(); for each band
     getMeterVals(lowBuffer, c, bufferLength);
     getMeterVals(midBuffer, c, bufferLength);
@@ -47,7 +51,7 @@ void MultiBandComp::splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c
     // use functions from Biquad
 
     for (int n = 0; n < c; n++){
-        lowBuffer.copyFrom(n, 1, buffer, n, 1, bufferLength);
+        lowBuffer.copyFrom(n, 0, buffer, n, 0, bufferLength);
         midBuffer.copyFrom(n, 0, buffer, n, 0, bufferLength);
         hiBuffer.copyFrom(n, 0, buffer, n, 0, bufferLength);
     }
@@ -74,9 +78,8 @@ void MultiBandComp::processBand(juce::AudioBuffer<float> &buffer, int c, float t
     
     for (int channel = 0; channel < c; channel++) {
         for (int n = 0; n < bufferLength; n++) {
-            float x = buffer.getSample(channel,n);
-            
-            
+            COMP.processSample(channel, buffer.getSample(channel, n));
+            // having error with JUCE DSP.....
         }
     }
 }
@@ -129,7 +132,8 @@ void MultiBandComp::setBQParameters(double newFs, double newLMFreq, double newMH
 
 void setCParameters(float newT, float newRatio, float newA, float newRel){
     
-    // do i need this?? i think so...
+    // do i need this?? i don't think so...
     // or just put the variables through processBand()....
+    // using dsp::compressor to set the values...
     
 }

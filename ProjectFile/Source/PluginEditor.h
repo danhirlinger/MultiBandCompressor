@@ -78,6 +78,8 @@ private:
     SimpleMeter hiMeter;
     
     SimpleMeter gainMeter;
+    
+    MultiBandComp MBC;
 
     void timerCallback() override;
     

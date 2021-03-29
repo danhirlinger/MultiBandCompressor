@@ -141,21 +141,27 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        float N = buffer.getNumSamples();
-        dsp::AudioBlock<float> block (buffer);
-        
-        block.multiplyBy(0.25f);
-        
-        lowC.process(dsp::ProcessContextReplacing<float> (block));
-        
-        block.copyTo(buffer);
-        
-        
-        
-        for (int n = 0; n < buffer.getNumSamples(); n++){
-            float x = buffer.getReadPointer(channel)[n];
+    MBC.prepareMBC(buffer, totalNumInputChannels);
+//    buffer.getSamplingRate ?????????
+    MBC.processBlock(buffer,48000);
+    
+    
+    
+//    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+//    {
+//        float N = buffer.getNumSamples();
+//        dsp::AudioBlock<float> block (buffer);
+//
+//        block.multiplyBy(0.25f);
+//
+//        lowC.process(dsp::ProcessContextReplacing<float> (block));
+//
+//        block.copyTo(buffer);
+//
+//
+//
+//        for (int n = 0; n < buffer.getNumSamples(); n++){
+//            float x = buffer.getReadPointer(channel)[n];
             
             // get meter values...although i need to do this for each buffer...?
             // answer: change "buffer" to whatever i need
@@ -170,10 +176,10 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
 //
 //            float y = compressor.process(x);
 //            buffer.getWritePointer(channel)[n] = x;
-        }
-
-    }
-    
+//        }
+//
+//    }
+//
 }
 
 //==============================================================================

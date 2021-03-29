@@ -292,8 +292,35 @@ void MultiBandCompressorAudioProcessorEditor::resized()
 
 void MultiBandCompressorAudioProcessorEditor::sliderValueChanged(juce::Slider * slider){
 
-    if (slider == &ratioLow){
-       // MultiBandComp.ratioLow = ratioLow.getValue();
+
+    if (slider == &threshLow){
+        MBC.threshLow = threshLow.getValue();
+    } if (slider == &ratioLow){
+        MBC.ratioLow = ratioLow.getValue();
+    } if (slider == &attackLow){
+        MBC.attackLow = attackLow.getValue();
+    } if (slider == &releaseLow){
+        MBC.releaseLow = releaseLow.getValue();
+    }
+    
+    if (slider == &threshMid){
+        MBC.threshMid = threshMid.getValue();
+    } if (slider == &ratioMid){
+        MBC.ratioMid = ratioMid.getValue();
+    } if (slider == &attackMid){
+        MBC.attackMid = attackMid.getValue();
+    } if (slider == &releaseMid){
+        MBC.releaseMid = releaseMid.getValue();
+    }
+    
+    if (slider == &threshHi){
+        MBC.threshHi = threshHi.getValue();
+    } if (slider == &ratioHi){
+        MBC.ratioHi = ratioHi.getValue();
+    } if (slider == &attackHi){
+        MBC.attackHi = attackHi.getValue();
+    } if (slider == &releaseHi){
+        MBC.releaseHi = releaseHi.getValue();
     }
 }
 
