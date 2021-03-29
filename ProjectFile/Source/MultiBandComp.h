@@ -26,10 +26,10 @@ public:
     
     void splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c); // split block into the specific bands
     
-    void processBand(juce::AudioBuffer<float> &buffer, float t, float ratio, float a, float rel); // process band based on respective compressor parameters
-    void rebuildBlock(); // combine together processed bands
+    void processBand(juce::AudioBuffer<float> &buffer, int c, float t, float ratio, float a, float rel); // process band based on respective compressor parameters
+    void rebuildBlock(int c); // combine together processed bands
     
-    float getMeterVals(juce::AudioBuffer<float> &buffer, int c, int n, const int N); // go through block by sample to obtain meter values
+    float getMeterVals(juce::AudioBuffer<float> &buffer, int c, const int N); // go through block by sample to obtain meter values
     
     void setBQParameters(double newFs, double newLMFreq, double newMHFreq, Biquad::FilterType filterTypeParam); // set the filters parameters of the particular band
     void setCParameters(float newT, float newRatio, float newA, float newRel);
@@ -78,7 +78,7 @@ private:
     juce::AudioBuffer<float> lowBuffer;
     juce::AudioBuffer<float> midBuffer;
     juce::AudioBuffer<float> hiBuffer;
-    
+    juce::AudioBuffer<float> finalBuffer;
     
 
 };

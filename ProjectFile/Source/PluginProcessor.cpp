@@ -159,10 +159,13 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
             
             // get meter values...although i need to do this for each buffer...?
             // answer: change "buffer" to whatever i need
-            lowMeterVal = MBC.getMeterVals(buffer, channel, n, N);
-            midMeterVal = MBC.getMeterVals(buffer, channel, n, N);
-            hiMeterVal = MBC.getMeterVals(buffer, channel, n, N);
-            gainMeterVal = MBC.getMeterVals(buffer, channel, n, N);
+            
+            // PERFORMING VUAnalysis in the MBC class
+            
+//            lowMeterVal = MBC.getMeterVals(buffer, channel, n, N);
+//            midMeterVal = MBC.getMeterVals(buffer, channel, n, N);
+//            hiMeterVal = MBC.getMeterVals(buffer, channel, n, N);
+//            gainMeterVal = MBC.getMeterVals(buffer, channel, n, N);
 
 //
 //            float y = compressor.process(x);
