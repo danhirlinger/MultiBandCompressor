@@ -14,8 +14,6 @@
       <FILE id="gY72tl" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="IVbxcC" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <FILE id="zAav3d" name="AudioEffect.cpp" compile="1" resource="0" file="Source/AudioEffect.cpp"/>
-      <FILE id="VOzMht" name="AudioEffect.h" compile="0" resource="0" file="Source/AudioEffect.h"/>
       <FILE id="a0q9Gy" name="SimpleMeter.h" compile="0" resource="0" file="Source/SimpleMeter.h"/>
       <FILE id="ytLaBu" name="VUAnalysis.h" compile="0" resource="0" file="Source/VUAnalysis.h"/>
       <FILE id="PqdkHd" name="Biquad.cpp" compile="1" resource="0" file="Source/Biquad.cpp"/>

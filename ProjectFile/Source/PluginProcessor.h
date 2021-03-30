@@ -67,7 +67,7 @@ private:
     MultiBandComp MBC;
     
     dsp::ProcessSpec spec;
-    dsp::Compressor<float> lowC;
+    dsp::Compressor<float> COMP;
 
     
     //==============================================================================

@@ -95,14 +95,11 @@ void MultiBandCompressorAudioProcessor::prepareToPlay (double sampleRate, int sa
 {
     spec.sampleRate = sampleRate;
     spec.maximumBlockSize = samplesPerBlock;
-    spec.numChannels = 2;
+    spec.numChannels = getTotalNumInputChannels();
     
-    lowC.prepare(spec);
-    lowC.reset();
-//    compressor::prepareCompressor(lowC);
-    
-    
-    
+    COMP.prepare(spec);
+//    COMP.reset();
+        
 }
 
 void MultiBandCompressorAudioProcessor::releaseResources()
@@ -140,10 +137,11 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
-
+    
     MBC.prepareMBC(buffer, totalNumInputChannels);
+
 //    buffer.getSamplingRate ?????????
-    MBC.processBlock(buffer,48000);
+    MBC.processBlock(buffer,spec.sampleRate);
     
     
     

@@ -322,6 +322,12 @@ void MultiBandCompressorAudioProcessorEditor::sliderValueChanged(juce::Slider * 
     } if (slider == &releaseHi){
         MBC.releaseHi = releaseHi.getValue();
     }
+    
+    if (slider == &lowMidF){
+        MBC.lowMidF = lowMidF.getValue();
+    } if (slider == &midHiF){
+        MBC.midHiF = midHiF.getValue();
+    }
 }
 
 void MultiBandCompressorAudioProcessorEditor::timerCallback(){

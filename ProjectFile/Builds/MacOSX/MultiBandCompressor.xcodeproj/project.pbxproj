@@ -89,10 +89,6 @@
 			isa = PBXBuildFile;
 			fileRef = A271C0360E200E04CD46489C;
 		};
-		458296EC10148A2072D0857A = {
-			isa = PBXBuildFile;
-			fileRef = 35876C6BF9AE7788BD380835;
-		};
 		6B82CEA6AAA64D28278AAB87 = {
 			isa = PBXBuildFile;
 			fileRef = 0E80671C2DDF81F0AFAEDE81;
@@ -299,13 +295,6 @@
 			path = ../../JuceLibraryCode/JuceHeader.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		35876C6BF9AE7788BD380835 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = AudioEffect.cpp;
-			path = ../../Source/AudioEffect.cpp;
-			sourceTree = "SOURCE_ROOT";
-		};
 		4D49F2FBDB8439B3E2C46EA8 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -388,13 +377,6 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_audio_utils.mm";
 			path = "../../JuceLibraryCode/include_juce_audio_utils.mm";
-			sourceTree = "SOURCE_ROOT";
-		};
-		8A9400471982971E97F4AC97 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = AudioEffect.h;
-			path = ../../Source/AudioEffect.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		8C03F4FDBE178A0DD2956D21 = {
@@ -651,8 +633,6 @@
 				D5F4973E7666346F083BD8D8,
 				A271C0360E200E04CD46489C,
 				FB8CA80827DAC3832BAAA5E8,
-				35876C6BF9AE7788BD380835,
-				8A9400471982971E97F4AC97,
 				F99B0D66955D3E3C6AA5B556,
 				08FED38E25E0103922ACE8EE,
 				0E80671C2DDF81F0AFAEDE81,
@@ -2089,7 +2069,6 @@
 				780FA561E36820022AF1D915,
 				C2D15B8476D4A7E31B859909,
 				5F01A9439B254F8502529ED4,
-				458296EC10148A2072D0857A,
 				6B82CEA6AAA64D28278AAB87,
 				8A17911B6E29BCDE9AAFA0A9,
 				A3B1640A8105B3212CA3737B,

@@ -11,7 +11,7 @@
 #include "MultiBandComp.h"
 
 MultiBandComp::MultiBandComp(){
-    
+
 }
 
 void MultiBandComp::prepareMBC(juce::AudioBuffer<float> &buffer, int c){
@@ -23,8 +23,6 @@ void MultiBandComp::prepareMBC(juce::AudioBuffer<float> &buffer, int c){
 
 void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
     int c = buffer.getNumChannels();
-    prepareMBC(buffer, c);
-    // pass in buffer
     
     // run splitBlock() to get individual buffers of L,M,H
     splitBlock(buffer,Fs,c);
@@ -34,7 +32,7 @@ void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
     processBand(midBuffer, c, threshMid, ratioMid, attackMid, releaseMid);
     processBand(hiBuffer, c, threshHi, ratioHi, attackHi, releaseHi);
     
-    // getMeterVals(); for each band
+    // getMeterVals() for each band
     getMeterVals(lowBuffer, c, bufferLength);
     getMeterVals(midBuffer, c, bufferLength);
     getMeterVals(hiBuffer, c, bufferLength);
@@ -59,11 +57,14 @@ void MultiBandComp::splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c
     
     setBQParameters(Fs, lowMidF, midHiF, Biquad::LPF);
     BQ.processBlock(lowBuffer);
+    BQ.processBlock(lowBuffer);
     
     setBQParameters(Fs, lowMidF, midHiF, Biquad::BPF1);
     BQ.processBlock(midBuffer);
+    BQ.processBlock(midBuffer);
     
     setBQParameters(Fs, lowMidF, midHiF, Biquad::HPF);
+    BQ.processBlock(hiBuffer);
     BQ.processBlock(hiBuffer);
 }
 
@@ -79,37 +80,37 @@ void MultiBandComp::processBand(juce::AudioBuffer<float> &buffer, int c, float t
     
     for (int channel = 0; channel < c; channel++) {
         for (int n = 0; n < bufferLength; n++) {
-            float x = buffer.getSample(channel, n);
-            COMP.processSample(channel, x);
+//            float x = buffer.getSample(channel, n);
+//            COMP.processSample(channel, x);
             // having error with JUCE DSP.....
         }
+        
+//        dsp::AudioBlock<float> block (buffer);
+//        COMP.process(dsp::ProcessContextReplacing<float> (block));
+//        block.copyTo(buffer);
     }
 }
 
 void MultiBandComp::rebuildBlock(int c){
 
     // combine together processed bands into an audioBlock
-    
-    // add together by sample?
     for (int channel = 0; channel < c; channel++) {
         lowBuffer.addFrom(channel, 0, midBuffer, channel, 0, bufferLength);
         lowBuffer.addFrom(channel, 0, hiBuffer, channel, 0, bufferLength);
+//        finalBuffer.copyFrom(channel, 0, lowBuffer, channel, 0, bufferLength);
         finalBuffer.copyFrom(channel, 0, lowBuffer, channel, 0, bufferLength);
     }
-    
-    
-    
-    // buffer.addFrom() to merge buffers together
-    // then buffer.copyFrom(), using processed buffer as source buffer
 }
 
-float MultiBandComp::getMeterVals(juce::AudioBuffer<float> &buffer, int c, const int N){
+void MultiBandComp::getMeterVals(juce::AudioBuffer<float> &buffer, int c, const int N){
     
-    for (int n = 0; n < N; n++){
-        float x = buffer.getReadPointer(c)[n];
-        meterVals = vuAnalysis.processSample(x,c);
+    for (int channel = 0; channel < c; channel++){
+        for (int n = 0; n < N; n++){
+            float x = buffer.getReadPointer(channel)[n];
+            meterVals = vuAnalysis.processSample(x,channel);
+        }
     }
-    return meterVals;
+//    return meterVals;
 }
 
 void MultiBandComp::setBQParameters(double newFs, double newLMFreq, double newMHFreq, Biquad::FilterType filterTypeParam){
@@ -128,7 +129,6 @@ void MultiBandComp::setBQParameters(double newFs, double newLMFreq, double newMH
         BQ.setFreq(biquadFreq);
         BQ.setFilterType(filterTypeParam);
     }
-    
 
 }
 
