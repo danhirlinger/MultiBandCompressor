@@ -61,14 +61,9 @@ public:
     float gainMeterVal;
     
 private:
-    
-    VUAnalysis vuAnalysis;
-    
-    MultiBandComp MBC;
-    
-    dsp::ProcessSpec spec;
-    dsp::Compressor<float> COMP;
 
+    MultiBandComp MBC;
+    dsp::ProcessSpec spec;
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MultiBandCompressorAudioProcessor)

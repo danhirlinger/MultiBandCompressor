@@ -11,8 +11,7 @@
 #include "MultiBandComp.h"
 
 MultiBandComp::MultiBandComp(){
-
-}
+};
 
 void MultiBandComp::prepare (const juce::dsp::ProcessSpec& spec){
     lowC.prepare(spec);
@@ -32,9 +31,23 @@ void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
     
     splitBlock(buffer,Fs,c);
     
-    processBand(buffer);
+    processBand(c);
     
     rebuildBlock(buffer, c);
+    
+    // take finalBuffer value and copy into the inputted buffer
+    dsp::AudioBlock<float> finalBlock (finalBuffer);
+    finalBlock.multiplyBy(gain);
+    finalBlock.copyTo(buffer);
+    
+//    for (int channel = 0; channel < c; ++channel){
+//        for (int n = 0; n < buffer.getNumSamples(); n++){
+//            lowMeterVal = getMeterVal(lowBuffer, channel, n, bufferLength);
+//            midMeterVal = getMeterVal(midBuffer, channel, n, b ufferLength);
+//            hiMeterVal  = getMeterVal(hiBuffer, channel, n, bufferLength);
+//            gainMeterVal = getMeterVal(buffer, channel, n, bufferLength);
+//        }
+//    }
 };
 
 void MultiBandComp::splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c){
@@ -60,23 +73,23 @@ void MultiBandComp::splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c
     BQHi.processBlock(hiBuffer);
 }
 
-void MultiBandComp::processBand(juce::AudioBuffer<float> &buffer){
+void MultiBandComp::processBand(int c){
     
 // set compressor values for each band's compressor
-    lowC.setRatio(ratioLow);
-    lowC.setAttack(attackLow);
-    lowC.setRelease(releaseLow);
-    lowC.setThreshold(threshLow);
+    lowC.setRatio(raLow);
+    lowC.setAttack(aLow);
+    lowC.setRelease(reLow);
+    lowC.setThreshold(tLow);
     
-    midC.setRatio(ratioMid);
-    midC.setAttack(attackMid);
-    midC.setRelease(releaseMid);
-    midC.setThreshold(threshMid);
+    midC.setRatio(raMid);
+    midC.setAttack(aMid);
+    midC.setRelease(reMid);
+    midC.setThreshold(tMid);
     
-    hiC.setRatio(ratioHi);
-    hiC.setAttack(attackHi);
-    hiC.setRelease(releaseHi);
-    hiC.setThreshold(threshHi);
+    hiC.setRatio(raHi);
+    hiC.setAttack(aHi);
+    hiC.setRelease(reHi);
+    hiC.setThreshold(tHi);
 
 // process the compression for each band
     
@@ -101,14 +114,17 @@ void MultiBandComp::rebuildBlock(juce::AudioBuffer<float> &buffer, int c){
     
     // combine together processed bands into an audioBlock
     for (int channel = 0; channel < c; channel++) {
-        lowBuffer.addFrom(channel, 0, midBuffer, channel, 0, bufferLength);
-        lowBuffer.addFrom(channel, 0, hiBuffer, channel, 0, bufferLength);
-        finalBuffer.copyFrom(channel, 0, lowBuffer, channel, 0, lowBuffer.getNumSamples());
+//        lowBuffer.addFrom(channel, 0, midBuffer, channel, 0, bufferLength);
+//        lowBuffer.addFrom(channel, 0, hiBuffer, channel, 0, bufferLength);
+//        finalBuffer.copyFrom(channel, 0, lowBuffer, channel, 0, lowBuffer.getNumSamples());
+        finalBuffer.copyFrom(channel, 0, lowBuffer, channel, 0, bufferLength);
+        finalBuffer.addFrom(channel, 0, midBuffer, channel, 0, bufferLength);
+        finalBuffer.addFrom(channel, 0, hiBuffer, channel, 0, bufferLength);
     }
-    // take finalBuffer value and copy into the inputted buffer
-    dsp::AudioBlock<float> finalBlock (finalBuffer);
-    buffer.applyGain(0, buffer.getNumSamples(), signalGain);
-    finalBlock.copyTo(buffer);
+//    // take finalBuffer value and copy into the inputted buffer
+//    dsp::AudioBlock<float> finalBlock (finalBuffer);
+//    finalBlock.copyTo(buffer);
+//    buffer.applyGain(0, buffer.getNumSamples(), signalGain);
 };
 
 void MultiBandComp::setBQParameters(double newFs, double newLMFreq, double newMHFreq, Biquad::FilterType filterTypeParam){
@@ -120,20 +136,20 @@ void MultiBandComp::setBQParameters(double newFs, double newLMFreq, double newMH
         BQLow.setFreq(bqFLow);
         BQLow.setFilterType(filterTypeParam);
     } else if (filterTypeParam == Biquad::HPF){
-        bqFMid = newMHFreq;
-        BQMid.setFs(newFs);
-        BQMid.setFreq(bqFMid);
-        BQMid.setFilterType(filterTypeParam);
-    } else if (filterTypeParam == Biquad::BPF1){
-        // need to establish a "center" frequency for BPF
-        bqFHi = ((newLMFreq + newMHFreq) / 2.f);
+        bqFHi = newMHFreq;
         BQHi.setFs(newFs);
         BQHi.setFreq(bqFHi);
         BQHi.setFilterType(filterTypeParam);
+    } else if (filterTypeParam == Biquad::BPF1){
+        // need to establish a "center" frequency for BPF
+        bqFMid = ((newLMFreq + newMHFreq) / 2.f);
+        BQMid.setFs(newFs);
+        BQMid.setFreq(bqFMid);
+        BQMid.setFilterType(filterTypeParam);
     }
 };
 
-float MultiBandComp::getMeterVal(juce::AudioBuffer<float> &buffer, int c, int n, const int N){
+float MultiBandComp::getMeterVal(juce::AudioBuffer<float> &buffer, int c, int n){
     
 // get meter value for specific channel, sample
 // function called in PluginProcessor.cpp

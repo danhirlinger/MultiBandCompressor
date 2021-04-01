@@ -24,39 +24,42 @@ public:
     void processBlock(juce::AudioBuffer<float> &buffer, float Fs); // process Audio Block
     
     void splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c); // split block into the specific bands
-    void processBand(juce::AudioBuffer<float> &buffer); // process band based on respective compressor parameters
+    void processBand(int c); // process band based on respective compressor parameters
     void rebuildBlock(juce::AudioBuffer<float> &buffer, int c); // combine together processed bands
     void setBQParameters(double newFs, double newLMFreq, double newMHFreq, Biquad::FilterType filterTypeParam); // set the filters parameters of the particular band
     
-    float getMeterVal(juce::AudioBuffer<float> &buffer, int c, int n, const int N); // go through block by sample to obtain meter values
+    float getMeterVal(juce::AudioBuffer<float> &buffer, int c, int n); // go through block by sample to obtain meter values
    
-    
-    float threshLow = 6.f;
-    float ratioLow = 1.f; // Q
-    float attackLow = 1.f;
-    float releaseLow = 1.f;
-    
+    // Low knobs
+    float tLow = 6.f;
+    float raLow = 1.f;
+    float aLow = 1.f;
+    float reLow = 1.f;
     // Mid knobs
-    float threshMid = 6.f;
-    float ratioMid = 1.f; // Q
-    float attackMid = 1.f;
-    float releaseMid = 1.f;
-    
+    float tMid = 6.f;
+    float raMid = 1.f;
+    float aMid = 1.f;
+    float reMid = 1.f;
     // Hi knobs
-    float threshHi = 6.f;
-    float ratioHi = 1.f; // Q
-    float attackHi = 1.f;
-    float releaseHi = 1.f;
+    float tHi = 6.f;
+    float raHi = 1.f;
+    float aHi = 1.f;
+    float reHi = 1.f;
     
     // Overall knobs
-    float signalGain = -10.0f;
-    float lowMidF; // freq dividing low's and mid's
-    float midHiF; // freq dividing mid's and high's
+    float gain = -50.0f;
+    float lowMidF = 500.f; // freq dividing low's and mid's
+    float midHiF = 2000.f; // freq dividing mid's and high's
     
     float lowMeterVal;
     float midMeterVal;
     float hiMeterVal;
     float gainMeterVal;
+    
+    juce::AudioBuffer<float> lowBuffer;
+    juce::AudioBuffer<float> midBuffer;
+    juce::AudioBuffer<float> hiBuffer;
+    juce::AudioBuffer<float> finalBuffer;
     
 private:
     
@@ -74,9 +77,6 @@ private:
     
     int bufferLength;
     
-    juce::AudioBuffer<float> lowBuffer;
-    juce::AudioBuffer<float> midBuffer;
-    juce::AudioBuffer<float> hiBuffer;
-    juce::AudioBuffer<float> finalBuffer;
+
 
 };

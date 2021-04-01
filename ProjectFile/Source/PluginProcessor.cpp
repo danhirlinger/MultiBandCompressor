@@ -98,8 +98,6 @@ void MultiBandCompressorAudioProcessor::prepareToPlay (double sampleRate, int sa
     spec.numChannels = getTotalNumInputChannels();
     
     MBC.prepare(spec);
-//    COMP.reset();
-        
 }
 
 void MultiBandCompressorAudioProcessor::releaseResources()
@@ -139,18 +137,19 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     
     MBC.prepareMBC(buffer, totalNumInputChannels);
-
-//    buffer.getSamplingRate ?????????
     MBC.processBlock(buffer,spec.sampleRate);
-    
-    int N = buffer.getNumSamples();
     
     for (int channel = 0; channel < totalNumInputChannels; ++channel){
         for (int n = 0; n < buffer.getNumSamples(); n++){
-            lowMeterVal = MBC.getMeterVal(buffer, channel, n, N);
-            midMeterVal = MBC.getMeterVal(buffer, channel, n, N);
-            hiMeterVal = MBC.getMeterVal(buffer, channel, n, N);
-            gainMeterVal = MBC.getMeterVal(buffer, channel, n, N);
+//            lowMeterVal = MBC.getMeterVal(buffer, channel, n, N);
+//            midMeterVal = MBC.getMeterVal(buffer, channel, n, N);
+//            hiMeterVal = MBC.getMeterVal(buffer, channel, n, N);
+//            gainMeterVal = MBC.getMeterVal(buffer, channel, n, N);
+//            
+            lowMeterVal = MBC.getMeterVal(MBC.lowBuffer, channel, n);
+            midMeterVal = MBC.getMeterVal(MBC.midBuffer, channel, n);
+            hiMeterVal = MBC.getMeterVal(MBC.hiBuffer, channel, n);
+            gainMeterVal = MBC.getMeterVal(buffer, channel, n);
         }
     }
 }

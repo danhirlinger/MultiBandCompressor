@@ -26,7 +26,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     threshLow.addListener(this);
     threshLow.setBounds(60,65,150,150);
     threshLow.setRange(-24.f,6.f,.1f); // dB
-    threshLow.setValue(MBC.threshLow);
+    threshLow.setValue(MBC.tLow);
     threshLow.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     threshLow.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     threshLow.setSize(80,80);
@@ -36,7 +36,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     ratioLow.addListener(this);
     ratioLow.setBounds(60,160,150,150);
     ratioLow.setRange(1.f, 100.f, .1f); // #:1 or something
-    ratioLow.setValue(MBC.ratioLow);
+    ratioLow.setValue(MBC.raLow);
     ratioLow.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     ratioLow.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     ratioLow.setSize(80,80);
@@ -46,7 +46,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     attackLow.addListener(this);
     attackLow.setBounds(60,245,150,150);
     attackLow.setRange(0.1f, 1000.f, .1f); // ms
-    attackLow.setValue(MBC.attackLow);
+    attackLow.setValue(MBC.aLow);
     attackLow.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     attackLow.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     attackLow.setSize(80,80);
@@ -56,7 +56,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     releaseLow.addListener(this);
     releaseLow.setBounds(60,340,150,150);
     releaseLow.setRange(0.1f, 1000.f, .1f); // ms
-    releaseLow.setValue(MBC.releaseLow);
+    releaseLow.setValue(MBC.reLow);
     releaseLow.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     releaseLow.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     releaseLow.setSize(80,80);
@@ -71,7 +71,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     threshMid.addListener(this);
     threshMid.setBounds(200,65,150,150);
     threshMid.setRange(-24.f,6.f,.1f); // dB
-    threshMid.setValue(MBC.threshMid);
+    threshMid.setValue(MBC.tMid);
     threshMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     threshMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     threshMid.setSize(80,80);
@@ -82,7 +82,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     ratioMid.addListener(this);
     ratioMid.setBounds(200,160,150,150);
     ratioMid.setRange(1.f, 100.f, .1f); // #:1 or something
-    ratioMid.setValue(MBC.ratioMid);
+    ratioMid.setValue(MBC.raMid);
     ratioMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     ratioMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     ratioMid.setSize(80,80);
@@ -93,7 +93,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     attackMid.addListener(this);
     attackMid.setBounds(200,245,150,150);
     attackMid.setRange(0.1f, 1000.f, .1f); // ms
-    attackMid.setValue(MBC.attackMid);
+    attackMid.setValue(MBC.aMid);
     attackMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     attackMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     attackMid.setSize(80,80);
@@ -103,7 +103,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     releaseMid.addListener(this);
     releaseMid.setBounds(200,340,150,150);
     releaseMid.setRange(0.1f, 1000.f, .1f); // ms
-    releaseMid.setValue(MBC.releaseMid);
+    releaseMid.setValue(MBC.reMid);
     releaseMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     releaseMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     releaseMid.setSize(80,80);
@@ -117,7 +117,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     threshHi.addListener(this);
     threshHi.setBounds(365,65,150,150);
     threshHi.setRange(-24.f,6.f,.1f); // dB
-    threshHi.setValue(MBC.threshHi);
+    threshHi.setValue(MBC.tHi);
     threshHi.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     threshHi.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     threshHi.setSize(80,80);
@@ -127,7 +127,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     ratioHi.addListener(this);
     ratioHi.setBounds(365,160,150,150);
     ratioHi.setRange(1.f, 100.f, .1f); // #:1 or something
-    ratioHi.setValue(MBC.ratioHi);
+    ratioHi.setValue(MBC.raHi);
     ratioHi.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     ratioHi.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     ratioHi.setSize(80,80);
@@ -137,7 +137,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     attackHi.addListener(this);
     attackHi.setBounds(365,245,150,150);
     attackHi.setRange(0.1f, 1000.f, .1f); // ms
-    attackHi.setValue(MBC.attackHi);
+    attackHi.setValue(MBC.aHi);
     attackHi.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     attackHi.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     attackHi.setSize(80,80);
@@ -147,7 +147,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     releaseHi.addListener(this);
     releaseHi.setBounds(365,340,150,150);
     releaseHi.setRange(0.1f, 1000.f, .1f); // ms
-    releaseHi.setValue(MBC.releaseHi);
+    releaseHi.setValue(MBC.reHi);
     releaseHi.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     releaseHi.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     releaseHi.setSize(80,80);
@@ -160,7 +160,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     signalGain.addListener(this);
     signalGain.setBounds(60,430,150,150);
     signalGain.setRange(-60.f,12.f,.1f);
-    signalGain.setValue(MBC.signalGain);
+    signalGain.setValue(MBC.gain);
     signalGain.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     signalGain.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     signalGain.setSize(90,90);
@@ -257,36 +257,34 @@ void MultiBandCompressorAudioProcessorEditor::resized()
 }
 
 void MultiBandCompressorAudioProcessorEditor::sliderValueChanged(juce::Slider * slider){
-
-
     if (slider == &threshLow){
-        MBC.threshLow = threshLow.getValue();
+        MBC.tLow = threshLow.getValue();
     } if (slider == &ratioLow){
-        MBC.ratioLow = ratioLow.getValue();
+        MBC.raLow = ratioLow.getValue();
     } if (slider == &attackLow){
-        MBC.attackLow = attackLow.getValue();
+        MBC.aLow = attackLow.getValue();
     } if (slider == &releaseLow){
-        MBC.releaseLow = releaseLow.getValue();
+        MBC.reLow = releaseLow.getValue();
     }
     
     if (slider == &threshMid){
-        MBC.threshMid = threshMid.getValue();
+        MBC.tMid = threshMid.getValue();
     } if (slider == &ratioMid){
-        MBC.ratioMid = ratioMid.getValue();
+        MBC.raMid = ratioMid.getValue();
     } if (slider == &attackMid){
-        MBC.attackMid = attackMid.getValue();
+        MBC.aMid = attackMid.getValue();
     } if (slider == &releaseMid){
-        MBC.releaseMid = releaseMid.getValue();
+        MBC.reMid = releaseMid.getValue();
     }
     
     if (slider == &threshHi){
-        MBC.threshHi = threshHi.getValue();
+        MBC.tHi = threshHi.getValue();
     } if (slider == &ratioHi){
-        MBC.ratioHi = ratioHi.getValue();
+        MBC.raHi = ratioHi.getValue();
     } if (slider == &attackHi){
-        MBC.attackHi = attackHi.getValue();
+        MBC.aHi = attackHi.getValue();
     } if (slider == &releaseHi){
-        MBC.releaseHi = releaseHi.getValue();
+        MBC.reHi = releaseHi.getValue();
     }
     
     if (slider == &lowMidF){
@@ -296,7 +294,7 @@ void MultiBandCompressorAudioProcessorEditor::sliderValueChanged(juce::Slider * 
     }
     
     if (slider == &signalGain){
-        MBC.signalGain = signalGain.getValue();
+        MBC.gain = signalGain.getValue();
     }
 }
 
@@ -305,5 +303,10 @@ void MultiBandCompressorAudioProcessorEditor::timerCallback(){
     midMeter.update(audioProcessor.midMeterVal);
     hiMeter.update(audioProcessor.hiMeterVal);
     gainMeter.update(audioProcessor.gainMeterVal);
+    
+//    lowMeter.update(MBC.lowMeterVal);
+//    midMeter.update(MBC.midMeterVal);
+//    hiMeter.update(MBC.hiMeterVal);
+//    gainMeter.update(MBC.gainMeterVal);
     
 }

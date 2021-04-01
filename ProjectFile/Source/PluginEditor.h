@@ -38,21 +38,18 @@ private:
     // Low knobs
     Slider threshLow;
     Slider ratioLow;
-//    Slider kneeLow;
     Slider attackLow;
     Slider releaseLow;
     
     // Mid knobs
     Slider threshMid;
     Slider ratioMid;
-//    Slider kneeMid;
     Slider attackMid;
     Slider releaseMid;
     
     // Hi knobs
     Slider threshHi;
     Slider ratioHi;
-//    Slider kneeHi;
     Slider attackHi;
     Slider releaseHi;
     
@@ -76,7 +73,6 @@ private:
     SimpleMeter lowMeter;
     SimpleMeter midMeter;
     SimpleMeter hiMeter;
-    
     SimpleMeter gainMeter;
     
     MultiBandComp MBC;
