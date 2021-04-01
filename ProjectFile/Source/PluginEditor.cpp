@@ -331,9 +331,9 @@ void MultiBandCompressorAudioProcessorEditor::sliderValueChanged(juce::Slider * 
 }
 
 void MultiBandCompressorAudioProcessorEditor::timerCallback(){
-    lowMeter.update(audioProcessor.lowMeterVal);
-    midMeter.update(audioProcessor.midMeterVal);
-    hiMeter.update(audioProcessor.hiMeterVal);
-    gainMeter.update(audioProcessor.gainMeterVal);
+    lowMeter.update(MBC.lowMeterVal);
+    midMeter.update(MBC.midMeterVal);
+    hiMeter.update(MBC.hiMeterVal);
+    gainMeter.update(MBC.gainMeterVal);
     
 }

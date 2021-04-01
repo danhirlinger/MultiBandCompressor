@@ -97,7 +97,7 @@ void MultiBandCompressorAudioProcessor::prepareToPlay (double sampleRate, int sa
     spec.maximumBlockSize = samplesPerBlock;
     spec.numChannels = getTotalNumInputChannels();
     
-    COMP.prepare(spec);
+    MBC.prepare(spec);
 //    COMP.reset();
         
 }
