@@ -24,41 +24,34 @@ public:
     void processBlock(juce::AudioBuffer<float> &buffer, float Fs); // process Audio Block
     
     void splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c); // split block into the specific bands
-    
     void processBand(juce::AudioBuffer<float> &buffer); // process band based on respective compressor parameters
-    
-    void rebuildBlock(int c); // combine together processed bands
-    
-    float getMeterVals(juce::AudioBuffer<float> &buffer, int c, int n, const int N); // go through block by sample to obtain meter values
-    
+    void rebuildBlock(juce::AudioBuffer<float> &buffer, int c); // combine together processed bands
     void setBQParameters(double newFs, double newLMFreq, double newMHFreq, Biquad::FilterType filterTypeParam); // set the filters parameters of the particular band
-    void setCParameters(float newT, float newRatio, float newA, float newRel);
+    
+    float getMeterVal(juce::AudioBuffer<float> &buffer, int c, int n, const int N); // go through block by sample to obtain meter values
+   
     
     float threshLow = 6.f;
     float ratioLow = 1.f; // Q
-//    float kneeLow;
     float attackLow = 1.f;
     float releaseLow = 1.f;
     
     // Mid knobs
     float threshMid = 6.f;
     float ratioMid = 1.f; // Q
-//    float kneeMid;
     float attackMid = 1.f;
     float releaseMid = 1.f;
     
     // Hi knobs
     float threshHi = 6.f;
     float ratioHi = 1.f; // Q
-//    float kneeHi;
     float attackHi = 1.f;
     float releaseHi = 1.f;
     
+    // Overall knobs
+    float signalGain = -10.0f;
     float lowMidF; // freq dividing low's and mid's
     float midHiF; // freq dividing mid's and high's
-    
-    // Overall knobs     // NEED FINAL GAIN KNOB FUNCTIONALITY !!!!!!!!
-    float signalGain = 0.01f;
     
     float lowMeterVal;
     float midMeterVal;
@@ -67,7 +60,7 @@ public:
     
 private:
     
-    float meterVals;
+    float meterVal;
     
     VUAnalysis vuAnalysis;
 
@@ -75,13 +68,10 @@ private:
     dsp::Compressor<float> midC;
     dsp::Compressor<float> hiC;
     
-    Biquad BQ;
-    float Q = 0.707;
-
-    float biquadFreq; // value dependent upon filter type
+    Biquad BQLow; float bqFLow;
+    Biquad BQMid; float bqFMid;
+    Biquad BQHi; float bqFHi;
     
-
-
     int bufferLength;
     
     juce::AudioBuffer<float> lowBuffer;

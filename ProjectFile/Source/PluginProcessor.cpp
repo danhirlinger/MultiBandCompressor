@@ -147,10 +147,10 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     
     for (int channel = 0; channel < totalNumInputChannels; ++channel){
         for (int n = 0; n < buffer.getNumSamples(); n++){
-            lowMeterVal = MBC.getMeterVals(buffer, channel, n, N);
-            midMeterVal = MBC.getMeterVals(buffer, channel, n, N);
-            hiMeterVal = MBC.getMeterVals(buffer, channel, n, N);
-            gainMeterVal = MBC.getMeterVals(buffer, channel, n, N);
+            lowMeterVal = MBC.getMeterVal(buffer, channel, n, N);
+            midMeterVal = MBC.getMeterVal(buffer, channel, n, N);
+            hiMeterVal = MBC.getMeterVal(buffer, channel, n, N);
+            gainMeterVal = MBC.getMeterVal(buffer, channel, n, N);
         }
     }
 }
