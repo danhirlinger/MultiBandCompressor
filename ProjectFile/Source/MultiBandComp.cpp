@@ -62,15 +62,16 @@ void MultiBandComp::splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c
 // filter each buffer based on the interface parameters
     setBQParameters(Fs, lowMidF, midHiF, Biquad::LPF);
     BQLow.processBlock(lowBuffer);
-    BQLow.processBlock(lowBuffer);
+//    BQLow.processBlock(lowBuffer);
+    // THIS IS WHERE THE ISSUE LIES.... i can't daisy-chain for some reason...
     
     setBQParameters(Fs, lowMidF, midHiF, Biquad::BPF1);
     BQMid.processBlock(midBuffer);
-    BQMid.processBlock(midBuffer);
+//    BQMid.processBlock(midBuffer);
     
     setBQParameters(Fs, lowMidF, midHiF, Biquad::HPF);
     BQHi.processBlock(hiBuffer);
-    BQHi.processBlock(hiBuffer);
+//    BQHi.processBlock(hiBuffer);
 }
 
 void MultiBandComp::processBand(int c){
@@ -92,7 +93,6 @@ void MultiBandComp::processBand(int c){
     hiC.setThreshold(tHi);
 
 // process the compression for each band
-    
     dsp::AudioBlock<float> lowBlock (lowBuffer);
     lowC.process(dsp::ProcessContextReplacing<float> (lowBlock));
     lowBlock.copyTo(lowBuffer);
