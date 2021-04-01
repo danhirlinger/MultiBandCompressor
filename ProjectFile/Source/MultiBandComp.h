@@ -29,26 +29,26 @@ public:
     
     void rebuildBlock(int c); // combine together processed bands
     
-    float getMeterVals(juce::AudioBuffer<float> &buffer, int c, const int N); // go through block by sample to obtain meter values
+    float getMeterVals(juce::AudioBuffer<float> &buffer, int c, int n, const int N); // go through block by sample to obtain meter values
     
     void setBQParameters(double newFs, double newLMFreq, double newMHFreq, Biquad::FilterType filterTypeParam); // set the filters parameters of the particular band
     void setCParameters(float newT, float newRatio, float newA, float newRel);
     
-    float threshLow = 1.f;
+    float threshLow = 6.f;
     float ratioLow = 1.f; // Q
 //    float kneeLow;
     float attackLow = 1.f;
     float releaseLow = 1.f;
     
     // Mid knobs
-    float threshMid = 1.f;
+    float threshMid = 6.f;
     float ratioMid = 1.f; // Q
 //    float kneeMid;
     float attackMid = 1.f;
     float releaseMid = 1.f;
     
     // Hi knobs
-    float threshHi = 1.f;
+    float threshHi = 6.f;
     float ratioHi = 1.f; // Q
 //    float kneeHi;
     float attackHi = 1.f;
@@ -56,6 +56,9 @@ public:
     
     float lowMidF; // freq dividing low's and mid's
     float midHiF; // freq dividing mid's and high's
+    
+    // Overall knobs     // NEED FINAL GAIN KNOB FUNCTIONALITY !!!!!!!!
+    float signalGain = 0.01f;
     
     float lowMeterVal;
     float midMeterVal;
@@ -67,8 +70,7 @@ private:
     float meterVals;
     
     VUAnalysis vuAnalysis;
-    
-//    dsp::Compressor<float> COMP;
+
     dsp::Compressor<float> lowC;
     dsp::Compressor<float> midC;
     dsp::Compressor<float> hiC;
@@ -78,11 +80,7 @@ private:
 
     float biquadFreq; // value dependent upon filter type
     
-    // Low knobs
-    
-    
-    // Overall knobs     // NEED FINAL GAIN KNOB FUNCTIONALITY !!!!!!!!
-    float signalGain = 1.f;
+
 
     int bufferLength;
     

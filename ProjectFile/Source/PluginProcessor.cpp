@@ -143,41 +143,16 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
 //    buffer.getSamplingRate ?????????
     MBC.processBlock(buffer,spec.sampleRate);
     
+    int N = buffer.getNumSamples();
     
-    
-//    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-//    {
-//        float N = buffer.getNumSamples();
-//        dsp::AudioBlock<float> block (buffer);
-//
-//        block.multiplyBy(0.25f);
-//
-//        lowC.process(dsp::ProcessContextReplacing<float> (block));
-//
-//        block.copyTo(buffer);
-//
-//
-//
-//        for (int n = 0; n < buffer.getNumSamples(); n++){
-//            float x = buffer.getReadPointer(channel)[n];
-            
-            // get meter values...although i need to do this for each buffer...?
-            // answer: change "buffer" to whatever i need
-            
-            // PERFORMING VUAnalysis in the MBC class
-            
-//            lowMeterVal = MBC.getMeterVals(buffer, channel, n, N);
-//            midMeterVal = MBC.getMeterVals(buffer, channel, n, N);
-//            hiMeterVal = MBC.getMeterVals(buffer, channel, n, N);
-//            gainMeterVal = MBC.getMeterVals(buffer, channel, n, N);
-
-//
-//            float y = compressor.process(x);
-//            buffer.getWritePointer(channel)[n] = x;
-//        }
-//
-//    }
-//
+    for (int channel = 0; channel < totalNumInputChannels; ++channel){
+        for (int n = 0; n < buffer.getNumSamples(); n++){
+            lowMeterVal = MBC.getMeterVals(buffer, channel, n, N);
+            midMeterVal = MBC.getMeterVals(buffer, channel, n, N);
+            hiMeterVal = MBC.getMeterVals(buffer, channel, n, N);
+            gainMeterVal = MBC.getMeterVals(buffer, channel, n, N);
+        }
+    }
 }
 
 //==============================================================================

@@ -40,18 +40,20 @@ void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
     processBand(buffer);
     
     // getMeterVals() for each band
-    lowMeterVal = getMeterVals(lowBuffer, c, bufferLength);
-    midMeterVal = getMeterVals(midBuffer, c, bufferLength);
-    hiMeterVal = getMeterVals(hiBuffer, c, bufferLength);
+//    lowMeterVal = getMeterVals(lowBuffer, c, bufferLength);
+//    midMeterVal = getMeterVals(midBuffer, c, bufferLength);
+//    hiMeterVal = getMeterVals(hiBuffer, c, bufferLength);
     
     rebuildBlock(c);
+
+    buffer.copyFrom(c-c, 0, finalBuffer, c-c, 0, buffer.getNumSamples());
     
-//    int newDestPosition = buffer.getNumSamples();
-//    int newBufferSize = buffer.getNumSamples() + finalBuffer.getNumSamples();
-//    buffer.setSize(finalBuffer.getNumChannels(), newBufferSize);
-//    buffer.copyFrom(c, newDestPosition, finalBuffer, c, 0, finalBuffer.getNumSamples());
+    buffer.applyGain(0, buffer.getNumSamples(), signalGain);
+
+    
+    
     // getMeterVals(); for final processed signal
-    gainMeterVal = getMeterVals(finalBuffer, c, bufferLength);
+//    gainMeterVal = getMeterVals(finalBuffer, c, bufferLength);
 }
 
 void MultiBandComp::splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c){
@@ -134,18 +136,18 @@ void MultiBandComp::rebuildBlock(int c){
     for (int channel = 0; channel < c; channel++) {
         lowBuffer.addFrom(channel, 0, midBuffer, channel, 0, bufferLength);
         lowBuffer.addFrom(channel, 0, hiBuffer, channel, 0, bufferLength);
-        finalBuffer.copyFrom(channel, newDestPosition, lowBuffer, channel, 0, lowBuffer.getNumSamples());
+        finalBuffer.copyFrom(channel, 0, lowBuffer, channel, 0, lowBuffer.getNumSamples());
     }
 }
 
-float MultiBandComp::getMeterVals(juce::AudioBuffer<float> &buffer, int c, const int N){
+float MultiBandComp::getMeterVals(juce::AudioBuffer<float> &buffer, int c, int n, const int N){
     
-    for (int channel = 0; channel < c; channel++){
-        for (int n = 0; n < N; n++){
-            float x = buffer.getReadPointer(channel)[n];
-            meterVals = vuAnalysis.processSample(x,channel);
-        }
-    }
+//    for (int channel = 0; channel < c; channel++){
+//        for (int n = 0; n < N; n++){
+            float x = buffer.getReadPointer(c)[n];
+            meterVals = vuAnalysis.processSample(x,c);
+//        }
+//    }
     return meterVals;
 }
 

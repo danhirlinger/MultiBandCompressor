@@ -328,12 +328,16 @@ void MultiBandCompressorAudioProcessorEditor::sliderValueChanged(juce::Slider * 
     } if (slider == &midHiF){
         MBC.midHiF = midHiF.getValue();
     }
+    
+    if (slider == &signalGain){
+        MBC.signalGain = signalGain.getValue();
+    }
 }
 
 void MultiBandCompressorAudioProcessorEditor::timerCallback(){
-    lowMeter.update(MBC.lowMeterVal);
-    midMeter.update(MBC.midMeterVal);
-    hiMeter.update(MBC.hiMeterVal);
-    gainMeter.update(MBC.gainMeterVal);
+    lowMeter.update(audioProcessor.lowMeterVal);
+    midMeter.update(audioProcessor.midMeterVal);
+    hiMeter.update(audioProcessor.hiMeterVal);
+    gainMeter.update(audioProcessor.gainMeterVal);
     
 }
