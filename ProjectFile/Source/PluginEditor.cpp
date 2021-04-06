@@ -159,7 +159,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     
     signalGain.addListener(this);
     signalGain.setBounds(60,430,150,150);
-    signalGain.setRange(-60.f,12.f,.1f);
+    signalGain.setRange(-12.f,12.f,.1f);
     signalGain.setValue(MBC.gain);
     signalGain.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     signalGain.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
