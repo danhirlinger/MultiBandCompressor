@@ -7,22 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CA787B55-F516-4DB7-B97C-D1BE66DF8CC3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/PluginEditor.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
-            landmarkName = "MultiBandCompressorAudioProcessorEditor::timerCallback()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "862FB64B-6A74-4F28-A433-3BBCFBB23ACA"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -30,25 +14,9 @@
             filePath = "../../Source/MultiBandComp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "MultiBandComp::rebuildBlock(buffer, c)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "ED3F5896-8103-411E-AA42-B99DA2375365"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/MultiBandComp.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "MultiBandComp::processBlock(buffer, Fs)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -65,6 +33,22 @@
             startingLineNumber = "299"
             endingLineNumber = "299"
             landmarkName = "MultiBandCompressorAudioProcessorEditor::sliderValueChanged(slider)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FEB870E4-E59F-4E95-A8B1-FFACC9F63C30"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/MultiBandComp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "MultiBandComp::processBand(c)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

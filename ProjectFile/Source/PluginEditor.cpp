@@ -305,10 +305,5 @@ void MultiBandCompressorAudioProcessorEditor::timerCallback(){
     midMeter.update(audioProcessor.midMeterVal);
     hiMeter.update(audioProcessor.hiMeterVal);
     gainMeter.update(audioProcessor.gainMeterVal);
-    
-//    lowMeter.update(MBC.lowMeterVal);
-//    midMeter.update(MBC.midMeterVal);
-//    hiMeter.update(MBC.hiMeterVal);
-//    gainMeter.update(MBC.gainMeterVal);
     signalGain.setValue(*audioProcessor.MBC.gain);
 }

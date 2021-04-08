@@ -20,6 +20,7 @@ void MultiBandComp::prepare (const juce::dsp::ProcessSpec& spec){
     lowBuffer.setSize(spec.numChannels,spec.maximumBlockSize);
     midBuffer.setSize(spec.numChannels,spec.maximumBlockSize);
     hiBuffer.setSize(spec.numChannels, spec.maximumBlockSize);
+    finalBuffer.setSize(spec.numChannels,spec.maximumBlockSize);
     
 };
 
@@ -98,15 +99,8 @@ void MultiBandComp::processBand(int c){
 
 void MultiBandComp::rebuildBlock(juce::AudioBuffer<float> &buffer, int c){
 
-//    int newDestPosition = finalBuffer.getNumSamples();
-    int newBufferSize = finalBuffer.getNumSamples() + lowBuffer.getNumSamples();
-    finalBuffer.setSize(lowBuffer.getNumChannels(), newBufferSize);
-    
     // combine together processed bands into an audioBlock
     for (int channel = 0; channel < c; channel++) {
-//        lowBuffer.addFrom(channel, 0, midBuffer, channel, 0, bufferLength);
-//        lowBuffer.addFrom(channel, 0, hiBuffer, channel, 0, bufferLength);
-//        finalBuffer.copyFrom(channel, 0, lowBuffer, channel, 0, lowBuffer.getNumSamples());
         finalBuffer.copyFrom(channel, 0, lowBuffer, channel, 0, bufferLength);
         finalBuffer.addFrom(channel, 0, midBuffer, channel, 0, bufferLength);
         finalBuffer.addFrom(channel, 0, hiBuffer, channel, 0, bufferLength);
