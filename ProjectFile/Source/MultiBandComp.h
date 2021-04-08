@@ -18,8 +18,6 @@ public:
     MultiBandComp();
     
     void prepare (const juce::dsp::ProcessSpec& spec);
-    
-    void prepareMBC(juce::AudioBuffer<float> &buffer, int c);
 
     void processBlock(juce::AudioBuffer<float> &buffer, float Fs); // process Audio Block
     
@@ -47,7 +45,8 @@ public:
     float reHi = 1.f;
     
     // Overall knobs
-    float gain = 0.f; // max +12db/1; min -12dB/-1
+//    float gain = 0.f;
+    juce::AudioParameterFloat * gain; // max +12db/1; min -12dB/-1
      // -1:1
     float lowMidF = 500.f; // freq dividing low's and mid's
     float midHiF = 2000.f; // freq dividing mid's and high's
@@ -77,7 +76,4 @@ private:
     Biquad BQHi; Biquad BQHi1; float bqFHi;
     
     int bufferLength;
-    
-
-
 };

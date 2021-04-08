@@ -160,7 +160,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     signalGain.addListener(this);
     signalGain.setBounds(60,430,150,150);
     signalGain.setRange(-12.f,12.f,.1f);
-    signalGain.setValue(MBC.gain);
+    signalGain.setValue(*audioProcessor.MBC.gain);
     signalGain.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     signalGain.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     signalGain.setSize(90,90);
@@ -208,6 +208,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     addAndMakeVisible(gainMeter);
     startTimerHz(30);
     
+    
+    startTimerHz(30); // 30 times per second
 }
 
 MultiBandCompressorAudioProcessorEditor::~MultiBandCompressorAudioProcessorEditor()
@@ -294,7 +296,7 @@ void MultiBandCompressorAudioProcessorEditor::sliderValueChanged(juce::Slider * 
     }
     
     if (slider == &signalGain){
-        MBC.gain = signalGain.getValue();
+        *audioProcessor.MBC.gain = signalGain.getValue();
     }
 }
 
@@ -308,5 +310,5 @@ void MultiBandCompressorAudioProcessorEditor::timerCallback(){
 //    midMeter.update(MBC.midMeterVal);
 //    hiMeter.update(MBC.hiMeterVal);
 //    gainMeter.update(MBC.gainMeterVal);
-    
+    signalGain.setValue(*audioProcessor.MBC.gain);
 }

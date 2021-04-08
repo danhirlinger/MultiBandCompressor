@@ -22,6 +22,12 @@ MultiBandCompressorAudioProcessor::MultiBandCompressorAudioProcessor()
                        )
 #endif
 {
+    addParameter(MBC.gain = new AudioParameterFloat("gain", // string for ID'ing parameter in code
+                                   "Gain", // string shown in DAW to user
+                                   -12.f, // min value for range
+                                   12.f, // max value for range
+                                   0.f // default value
+                                                ));
 }
 
 MultiBandCompressorAudioProcessor::~MultiBandCompressorAudioProcessor()
@@ -136,7 +142,6 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     
-    MBC.prepareMBC(buffer, totalNumInputChannels);
     MBC.processBlock(buffer,spec.sampleRate);
     
     
@@ -168,12 +173,23 @@ void MultiBandCompressorAudioProcessor::getStateInformation (juce::MemoryBlock& 
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
+    std::unique_ptr<XmlElement> xml (new XmlElement("MBCGeneralParameters") );
+    xml->setAttribute("gain", (double) *MBC.gain);
+//    xml->setAttribute("lowMidF", (double) *MBC.lowMidF);
+    copyXmlToBinary(*xml, destData);
 }
 
 void MultiBandCompressorAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+    std::unique_ptr<XmlElement> xml (getXmlFromBinary(data, sizeInBytes));
+    if (xml != nullptr){
+        if (xml->hasTagName("MBCGeneralParameters")){
+            *MBC.gain = xml->getDoubleAttribute("gain",0.f);
+//            *MBC.lowMidF = xml->getDoubleAttribute("lowMidF",0.f);
+        }
+    }
 }
 
 //==============================================================================

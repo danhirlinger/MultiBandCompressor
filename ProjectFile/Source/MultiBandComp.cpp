@@ -11,19 +11,16 @@
 #include "MultiBandComp.h"
 
 MultiBandComp::MultiBandComp(){
-};
+}
 
 void MultiBandComp::prepare (const juce::dsp::ProcessSpec& spec){
     lowC.prepare(spec);
     midC.prepare(spec);
     hiC.prepare(spec);
-};
-
-void MultiBandComp::prepareMBC(juce::AudioBuffer<float> &buffer, int c){
-    bufferLength = buffer.getNumSamples();
-    lowBuffer.setSize(c, bufferLength);
-    midBuffer.setSize(c, bufferLength);
-    hiBuffer.setSize(c, bufferLength);
+    lowBuffer.setSize(spec.numChannels,spec.maximumBlockSize);
+    midBuffer.setSize(spec.numChannels,spec.maximumBlockSize);
+    hiBuffer.setSize(spec.numChannels, spec.maximumBlockSize);
+    
 };
 
 void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
@@ -37,7 +34,7 @@ void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
     
     // take finalBuffer value and copy into the inputted buffer
     dsp::AudioBlock<float> finalBlock (finalBuffer);
-    float gain_linear = pow(10.f, gain/20.f); // convert from dB to linear
+    float gain_linear = pow(10.f, *gain/20.f); // convert from dB to linear
     finalBlock.multiplyBy(gain_linear);
     finalBlock.copyTo(buffer);
 };

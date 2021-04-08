@@ -60,9 +60,10 @@ public:
     float hiMeterVal;
     float gainMeterVal;
     
-private:
-
     MultiBandComp MBC;
+    
+private:
+    
     dsp::ProcessSpec spec;
     
     //==============================================================================
