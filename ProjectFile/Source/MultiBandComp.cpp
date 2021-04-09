@@ -17,31 +17,43 @@ void MultiBandComp::prepare (const juce::dsp::ProcessSpec& spec){
     lowC.prepare(spec);
     midC.prepare(spec);
     hiC.prepare(spec);
+    initialBuffer.setSize(spec.numChannels, spec.maximumBlockSize);
+    initialBuffer.clear();
     lowBuffer.setSize(spec.numChannels,spec.maximumBlockSize);
+    lowBuffer.clear();
     midBuffer.setSize(spec.numChannels,spec.maximumBlockSize);
+    midBuffer.clear();
     hiBuffer.setSize(spec.numChannels, spec.maximumBlockSize);
+    hiBuffer.clear();
     finalBuffer.setSize(spec.numChannels,spec.maximumBlockSize);
+    finalBuffer.clear();
+    bufferLength = spec.maximumBlockSize;
     
 };
 
 void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
     int c = buffer.getNumChannels();
+    for (int n = 0; n < c; n++){
+        initialBuffer.copyFrom(n,0,buffer,n,0,bufferLength);
+    }
     
-    splitBlock(buffer,Fs,c);
+    splitBlock(initialBuffer,Fs,c);
     
     processBand(c);
     
-    rebuildBlock(buffer, c);
+    rebuildBlock(initialBuffer, c);
     
     // take finalBuffer value and copy into the inputted buffer
     dsp::AudioBlock<float> finalBlock (finalBuffer);
-    float gain_linear = pow(10.f, *gain/20.f); // convert from dB to linear
+    float gain_linear = pow(10.f, gain/20.f); // convert from dB to linear
     finalBlock.multiplyBy(gain_linear);
-    finalBlock.copyTo(buffer);
+    finalBlock.copyTo(finalBuffer);
+    for (int n = 0; n < c; n++){
+        buffer.copyFrom(n, 0, finalBuffer, n, 0, bufferLength);
+    }
 };
 
 void MultiBandComp::splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c){
-    
 // duplicate original buffer into buffer bands
     for (int n = 0; n < c; n++){
         lowBuffer.copyFrom(n, 0, buffer, n, 0, bufferLength);
@@ -68,6 +80,7 @@ void MultiBandComp::splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c
 void MultiBandComp::processBand(int c){
     
 // set compressor values for each band's compressor
+    
     lowC.setRatio(raLow);
     lowC.setAttack(aLow);
     lowC.setRelease(reLow);

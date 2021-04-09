@@ -19,19 +19,45 @@ MultiBandCompressorAudioProcessor::MultiBandCompressorAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ), MBCstate(*this, nullptr, "MBCParams", createParameterLayout()){}
 #endif
-{
-    addParameter(MBC.gain = new AudioParameterFloat("gain", // string for ID'ing parameter in code
-                                   "Gain", // string shown in DAW to user
-                                   -12.f, // min value for range
-                                   12.f, // max value for range
-                                   0.f // default value
-                                                ));
-}
+//{
+//    addParameter(MBC.gain = new AudioParameterFloat("gain", // string for ID'ing parameter in code
+//                                   "Gain", // string shown in DAW to user
+//                                   -12.f, // min value for range
+//                                   12.f, // max value for range
+//                                   0.f // default value
+//                                                ));
+//}
 
 MultiBandCompressorAudioProcessor::~MultiBandCompressorAudioProcessor()
 {
+}
+
+AudioProcessorValueTreeState::ParameterLayout MultiBandCompressorAudioProcessor::createParameterLayout(){
+    std::vector<std::unique_ptr<RangedAudioParameter>> params; // a vector of pointers to the parameters
+    
+    params.push_back( std::make_unique<AudioParameterFloat> ("threshLow","ThreshLow",-24.f,6.f,0.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("ratioLow","RatioLow",1.f,100.f,1.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("attackLow","AttackLow",0.1f,10000.f,1.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("releaseLow","ReleaseLow",0.1f,10000.f,1.f));
+    
+    params.push_back( std::make_unique<AudioParameterFloat> ("threshMid","ThreshMid",-24.f,6.f,0.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("ratioMid","RatioMid",1.f,100.f,1.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("attackMid","AttackMid",0.1f,10000.f,1.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("releaseMid","ReleaseMid",0.1f,10000.f,1.f));
+    
+    params.push_back( std::make_unique<AudioParameterFloat> ("threshHi","ThreshHi",-24.f,6.f,0.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("ratioHi","RatioHi",1.f,100.f,1.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("attackHi","AttackHi",0.1f,10000.f,1.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("releaseHi","ReleaseHi",0.1f,10000.f,1.f));
+    
+    params.push_back( std::make_unique<AudioParameterFloat> ("signalGain","SignalGain",-12.f,12.f,0.f));
+    
+    params.push_back( std::make_unique<AudioParameterFloat>("lowMidF","LowMidF",250.f,1000.f,500.f));
+    params.push_back( std::make_unique<AudioParameterFloat>("midHiF","MidHiF",1500.f,5000.f,3000.f));
+    
+    return {params.begin() , params.end() };
 }
 
 //==============================================================================
@@ -142,8 +168,27 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     
-    MBC.processBlock(buffer,spec.sampleRate);
+    MBC.tLow = *MBCstate.getRawParameterValue("threshLow");
+    MBC.raLow = *MBCstate.getRawParameterValue("ratioLow");
+    MBC.aLow = *MBCstate.getRawParameterValue("attackLow");
+    MBC.reLow = *MBCstate.getRawParameterValue("releaseLow");
     
+    MBC.tMid = *MBCstate.getRawParameterValue("threshMid");
+    MBC.raMid = *MBCstate.getRawParameterValue("ratioMid");
+    MBC.aMid = *MBCstate.getRawParameterValue("attackMid");
+    MBC.reMid = *MBCstate.getRawParameterValue("releaseMid");
+    
+    MBC.tHi = *MBCstate.getRawParameterValue("threshHi");
+    MBC.raHi = *MBCstate.getRawParameterValue("ratioHi");
+    MBC.aHi = *MBCstate.getRawParameterValue("attackHi");
+    MBC.reHi = *MBCstate.getRawParameterValue("releaseHi");
+    
+    MBC.gain = *MBCstate.getRawParameterValue("signalGain");
+    MBC.lowMidF = *MBCstate.getRawParameterValue("lowMidF");
+    MBC.midHiF = *MBCstate.getRawParameterValue("midHiF");
+
+    
+    MBC.processBlock(buffer,spec.sampleRate);
     
     for (int channel = 0; channel < totalNumInputChannels; ++channel){
         for (int n = 0; n < buffer.getNumSamples(); n++){
@@ -173,9 +218,12 @@ void MultiBandCompressorAudioProcessor::getStateInformation (juce::MemoryBlock& 
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
-    std::unique_ptr<XmlElement> xml (new XmlElement("MBCGeneralParameters") );
-    xml->setAttribute("gain", (double) *MBC.gain);
-//    xml->setAttribute("lowMidF", (double) *MBC.lowMidF);
+//    std::unique_ptr<XmlElement> xml (new XmlElement("MBCGeneralParameters") );
+//    xml->setAttribute("gain", (double) *MBC.gain);
+////    xml->setAttribute("lowMidF", (double) *MBC.lowMidF);
+//    copyXmlToBinary(*xml, destData);
+    auto currentState = MBCstate.copyState();
+    std::unique_ptr<XmlElement> xml (currentState.createXml());
     copyXmlToBinary(*xml, destData);
 }
 
@@ -183,12 +231,16 @@ void MultiBandCompressorAudioProcessor::setStateInformation (const void* data, i
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+//    std::unique_ptr<XmlElement> xml (getXmlFromBinary(data, sizeInBytes));
+//    if (xml != nullptr){
+//        if (xml->hasTagName("MBCGeneralParameters")){
+//            *MBC.gain = xml->getDoubleAttribute("gain",0.f);
+////            *MBC.lowMidF = xml->getDoubleAttribute("lowMidF",0.f);
+//        }
+//    }
     std::unique_ptr<XmlElement> xml (getXmlFromBinary(data, sizeInBytes));
-    if (xml != nullptr){
-        if (xml->hasTagName("MBCGeneralParameters")){
-            *MBC.gain = xml->getDoubleAttribute("gain",0.f);
-//            *MBC.lowMidF = xml->getDoubleAttribute("lowMidF",0.f);
-        }
+    if (xml && xml->hasTagName("MBCParams")){
+        MBCstate.replaceState(ValueTree::fromXml(*xml));
     }
 }
 

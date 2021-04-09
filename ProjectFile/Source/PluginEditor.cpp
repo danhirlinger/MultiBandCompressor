@@ -23,193 +23,206 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     
     // --------------------------------------------------------------------
     // ---------------- KNOBS FOR LOWS ------------------------------------
-    threshLow.addListener(this);
+//    threshLow.addListener(this);
     threshLow.setBounds(60,65,150,150);
     threshLow.setRange(-24.f,6.f,.1f); // dB
-    threshLow.setValue(MBC.tLow);
+//    threshLow.setValue(MBC.tLow);
     threshLow.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     threshLow.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     threshLow.setSize(80,80);
     threshLow.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(threshLow);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"threshLow",threshLow));
     
-    ratioLow.addListener(this);
+//    sliderAttachments = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.state,"threshLow",threshLow);
+    
+//    ratioLow.addListener(this);
     ratioLow.setBounds(60,160,150,150);
     ratioLow.setRange(1.f, 100.f, .1f); // #:1 or something
-    ratioLow.setValue(MBC.raLow);
+//    ratioLow.setValue(MBC.raLow);
     ratioLow.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     ratioLow.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     ratioLow.setSize(80,80);
     ratioLow.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(ratioLow);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"ratioLow",ratioLow));
+//    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.state,"ratioLow",ratioLow));
     
-    attackLow.addListener(this);
+//    attackLow.addListener(this);
     attackLow.setBounds(60,245,150,150);
     attackLow.setRange(0.1f, 1000.f, .1f); // ms
-    attackLow.setValue(MBC.aLow);
+//    attackLow.setValue(MBC.aLow);
     attackLow.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     attackLow.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     attackLow.setSize(80,80);
     attackLow.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(attackLow);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"attackLow",attackLow));
     
-    releaseLow.addListener(this);
+//    releaseLow.addListener(this);
     releaseLow.setBounds(60,340,150,150);
     releaseLow.setRange(0.1f, 1000.f, .1f); // ms
-    releaseLow.setValue(MBC.reLow);
+//    releaseLow.setValue(MBC.reLow);
     releaseLow.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     releaseLow.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     releaseLow.setSize(80,80);
     releaseLow.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(releaseLow);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"releaseLow",releaseLow));
     // --------------------------------------------------------------------
     // --------------------------------------------------------------------
     // --------------------------------------------------------------------
     // --------------------- KNOBS FOR MIDS -------------------------------
     
     // change text color in the boxes
-    threshMid.addListener(this);
+//    threshMid.addListener(this);
     threshMid.setBounds(200,65,150,150);
     threshMid.setRange(-24.f,6.f,.1f); // dB
-    threshMid.setValue(MBC.tMid);
+//    threshMid.setValue(MBC.tMid);
     threshMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     threshMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     threshMid.setSize(80,80);
     threshMid.setLookAndFeel(&midKnobColor);
     threshMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(threshMid);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"threshMid",threshMid));
     
-    ratioMid.addListener(this);
+//    ratioMid.addListener(this);
     ratioMid.setBounds(200,160,150,150);
     ratioMid.setRange(1.f, 100.f, .1f); // #:1 or something
-    ratioMid.setValue(MBC.raMid);
+//    ratioMid.setValue(MBC.raMid);
     ratioMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     ratioMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     ratioMid.setSize(80,80);
     ratioMid.setLookAndFeel(&midKnobColor);
     ratioMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(ratioMid);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"ratioMid",ratioMid));
     
-    attackMid.addListener(this);
+//    attackMid.addListener(this);
     attackMid.setBounds(200,245,150,150);
     attackMid.setRange(0.1f, 1000.f, .1f); // ms
-    attackMid.setValue(MBC.aMid);
+//    attackMid.setValue(MBC.aMid);
     attackMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     attackMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     attackMid.setSize(80,80);
     attackMid.setLookAndFeel(&midKnobColor); attackMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(attackMid);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"attackMid",attackMid));
     
-    releaseMid.addListener(this);
+//    releaseMid.addListener(this);
     releaseMid.setBounds(200,340,150,150);
     releaseMid.setRange(0.1f, 1000.f, .1f); // ms
-    releaseMid.setValue(MBC.reMid);
+//    releaseMid.setValue(MBC.reMid);
     releaseMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     releaseMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     releaseMid.setSize(80,80);
     releaseMid.setLookAndFeel(&midKnobColor);releaseMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(releaseMid);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"releaseMid",releaseMid));
     
     // --------------------------------------------------------------------
     // --------------------------------------------------------------------
     // --------------------------------------------------------------------
     // --------------------- KNOBS FOR HIS --------------------------------
-    threshHi.addListener(this);
+//    threshHi.addListener(this);
     threshHi.setBounds(365,65,150,150);
     threshHi.setRange(-24.f,6.f,.1f); // dB
-    threshHi.setValue(MBC.tHi);
+//    threshHi.setValue(MBC.tHi);
     threshHi.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     threshHi.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     threshHi.setSize(80,80);
     threshHi.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(threshHi);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"threshHi",threshHi));
     
-    ratioHi.addListener(this);
+//    ratioHi.addListener(this);
     ratioHi.setBounds(365,160,150,150);
     ratioHi.setRange(1.f, 100.f, .1f); // #:1 or something
-    ratioHi.setValue(MBC.raHi);
+//    ratioHi.setValue(MBC.raHi);
     ratioHi.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     ratioHi.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     ratioHi.setSize(80,80);
     ratioHi.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(ratioHi);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"ratioHi",ratioHi));
     
-    attackHi.addListener(this);
+//    attackHi.addListener(this);
     attackHi.setBounds(365,245,150,150);
     attackHi.setRange(0.1f, 1000.f, .1f); // ms
-    attackHi.setValue(MBC.aHi);
+//    attackHi.setValue(MBC.aHi);
     attackHi.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     attackHi.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     attackHi.setSize(80,80);
     attackHi.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(attackHi);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"attackHi",attackHi));
     
-    releaseHi.addListener(this);
+//    releaseHi.addListener(this);
     releaseHi.setBounds(365,340,150,150);
     releaseHi.setRange(0.1f, 1000.f, .1f); // ms
-    releaseHi.setValue(MBC.reHi);
+//    releaseHi.setValue(MBC.reHi);
     releaseHi.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     releaseHi.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     releaseHi.setSize(80,80);
     releaseHi.setLookAndFeel(&lowHiKnobColor);
     addAndMakeVisible(releaseHi);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"releaseHi",releaseHi));
     
     // --------------------------------------------------------------------
     // --------------------------------------------------------------------
     
-    signalGain.addListener(this);
+//    signalGain.addListener(this);
     signalGain.setBounds(60,430,150,150);
     signalGain.setRange(-12.f,12.f,.1f);
-    signalGain.setValue(*audioProcessor.MBC.gain);
+//    signalGain.setValue(MBC.gain);
     signalGain.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     signalGain.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     signalGain.setSize(90,90);
     addAndMakeVisible(signalGain);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"signalGain",signalGain));
     
-    lowMidF.addListener(this);
+//    lowMidF.addListener(this);
     lowMidF.setBounds(144, 30, 100, 30);
     lowMidF.setRange(250.f,1000.f,.1f);
-    lowMidF.setValue(MBC.lowMidF);
+//    lowMidF.setValue(MBC.lowMidF);
     lowMidF.setTextBoxStyle(Slider::TextBoxAbove, false, 50, 20);
     lowMidF.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     lowMidF.setSize(60,60);
     lowMidF.setLookAndFeel(&fValsColor);
     addAndMakeVisible(lowMidF);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"lowMidF",lowMidF));
     
     
-    midHiF.addListener(this);
+//    midHiF.addListener(this);
     midHiF.setBounds(306, 30, 100, 30);
     midHiF.setRange(1500.f, 5000.f,.1f);
-    midHiF.setValue(MBC.midHiF);
+//    midHiF.setValue(MBC.midHiF);
     midHiF.setTextBoxStyle(Slider::TextBoxAbove, false, 50, 20);
     midHiF.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     midHiF.setSize(60,60);
     midHiF.setLookAndFeel(&fValsColor);
     addAndMakeVisible(midHiF);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"midHiF",midHiF));
     
     // Meters
     lowMeter.setBounds(150, 100, 10, 320);
     lowMeter.configuration = SimpleMeter::VERTICAL;
     addAndMakeVisible(lowMeter);
-    startTimerHz(30);
     
     midMeter.setBounds(310,100,10,320);
     midMeter.configuration = SimpleMeter::VERTICAL;
     addAndMakeVisible(midMeter);
-    startTimerHz(30);
     
     hiMeter.setBounds(470,100,10,320);
     hiMeter.configuration = SimpleMeter::VERTICAL;
     addAndMakeVisible(hiMeter);
-    startTimerHz(30);
     
     gainMeter.setBounds(170,470,300,20);
     gainMeter.configuration = SimpleMeter::HORIZONTAL;
     addAndMakeVisible(gainMeter);
+    
     startTimerHz(30);
-    
-    
-    startTimerHz(30); // 30 times per second
 }
 
 MultiBandCompressorAudioProcessorEditor::~MultiBandCompressorAudioProcessorEditor()
@@ -259,45 +272,45 @@ void MultiBandCompressorAudioProcessorEditor::resized()
 }
 
 void MultiBandCompressorAudioProcessorEditor::sliderValueChanged(juce::Slider * slider){
-    if (slider == &threshLow){
-        MBC.tLow = threshLow.getValue();
-    } if (slider == &ratioLow){
-        MBC.raLow = ratioLow.getValue();
-    } if (slider == &attackLow){
-        MBC.aLow = attackLow.getValue();
-    } if (slider == &releaseLow){
-        MBC.reLow = releaseLow.getValue();
-    }
-    
-    if (slider == &threshMid){
-        MBC.tMid = threshMid.getValue();
-    } if (slider == &ratioMid){
-        MBC.raMid = ratioMid.getValue();
-    } if (slider == &attackMid){
-        MBC.aMid = attackMid.getValue();
-    } if (slider == &releaseMid){
-        MBC.reMid = releaseMid.getValue();
-    }
-    
-    if (slider == &threshHi){
-        MBC.tHi = threshHi.getValue();
-    } if (slider == &ratioHi){
-        MBC.raHi = ratioHi.getValue();
-    } if (slider == &attackHi){
-        MBC.aHi = attackHi.getValue();
-    } if (slider == &releaseHi){
-        MBC.reHi = releaseHi.getValue();
-    }
-    
-    if (slider == &lowMidF){
-        MBC.lowMidF = lowMidF.getValue();
-    } if (slider == &midHiF){
-        MBC.midHiF = midHiF.getValue();
-    }
-    
-    if (slider == &signalGain){
-        *audioProcessor.MBC.gain = signalGain.getValue();
-    }
+//    if (slider == &threshLow){
+//        MBC.tLow = threshLow.getValue();}
+//    if (slider == &ratioLow){
+//        MBC.raLow = ratioLow.getValue();
+//    } if (slider == &attackLow){
+//        MBC.aLow = attackLow.getValue();
+//    } if (slider == &releaseLow){
+//        MBC.reLow = releaseLow.getValue();
+//    }
+//    
+//    if (slider == &threshMid){
+//        MBC.tMid = threshMid.getValue();
+//    } if (slider == &ratioMid){
+//        MBC.raMid = ratioMid.getValue();
+//    } if (slider == &attackMid){
+//        MBC.aMid = attackMid.getValue();
+//    } if (slider == &releaseMid){
+//        MBC.reMid = releaseMid.getValue();
+//    }
+//    
+//    if (slider == &threshHi){
+//        MBC.tHi = threshHi.getValue();
+//    } if (slider == &ratioHi){
+//        MBC.raHi = ratioHi.getValue();
+//    } if (slider == &attackHi){
+//        MBC.aHi = attackHi.getValue();
+//    } if (slider == &releaseHi){
+//        MBC.reHi = releaseHi.getValue();
+//    }
+//    
+//    if (slider == &lowMidF){
+//        MBC.lowMidF = lowMidF.getValue();
+//    } if (slider == &midHiF){
+//        MBC.midHiF = midHiF.getValue();
+//    }
+//    
+//    if (slider == &signalGain){
+//        MBC.gain = signalGain.getValue();
+//    }
 }
 
 void MultiBandCompressorAudioProcessorEditor::timerCallback(){
@@ -305,5 +318,6 @@ void MultiBandCompressorAudioProcessorEditor::timerCallback(){
     midMeter.update(audioProcessor.midMeterVal);
     hiMeter.update(audioProcessor.hiMeterVal);
     gainMeter.update(audioProcessor.gainMeterVal);
-    signalGain.setValue(*audioProcessor.MBC.gain);
+    
+    signalGain.setValue(audioProcessor.MBC.gain);
 }

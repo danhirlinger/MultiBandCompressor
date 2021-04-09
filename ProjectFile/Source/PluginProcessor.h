@@ -62,6 +62,9 @@ public:
     
     MultiBandComp MBC;
     
+    AudioProcessorValueTreeState MBCstate;
+    AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    
 private:
     
     dsp::ProcessSpec spec;
