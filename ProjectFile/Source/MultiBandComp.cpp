@@ -17,18 +17,19 @@ void MultiBandComp::prepare (const juce::dsp::ProcessSpec& spec){
     lowC.prepare(spec);
     midC.prepare(spec);
     hiC.prepare(spec);
-    initialBuffer.setSize(spec.numChannels, spec.maximumBlockSize);
-    initialBuffer.clear();
-    lowBuffer.setSize(spec.numChannels,spec.maximumBlockSize);
-    lowBuffer.clear();
-    midBuffer.setSize(spec.numChannels,spec.maximumBlockSize);
-    midBuffer.clear();
-    hiBuffer.setSize(spec.numChannels, spec.maximumBlockSize);
-    hiBuffer.clear();
-    finalBuffer.setSize(spec.numChannels,spec.maximumBlockSize);
-    finalBuffer.clear();
+    DryWet.prepare(spec);
+    
+    initialBuffer.setSize(spec.numChannels, spec.maximumBlockSize); initialBuffer.clear();
+    lowBuffer.setSize(spec.numChannels,spec.maximumBlockSize); lowBuffer.clear();
+    midBuffer.setSize(spec.numChannels,spec.maximumBlockSize); midBuffer.clear();
+    hiBuffer.setSize(spec.numChannels, spec.maximumBlockSize); hiBuffer.clear();
+    finalBuffer.setSize(spec.numChannels,spec.maximumBlockSize); finalBuffer.clear();
+    
     bufferLength = spec.maximumBlockSize;
     
+    // could also use "balanced" or others on the site. Ask Tarr
+    DryWet.setMixingRule(juce::dsp::DryWetMixingRule::linear);
+    DryWet.setWetLatency(2); // figure out what this does
 };
 
 void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
@@ -36,18 +37,23 @@ void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
     for (int n = 0; n < c; n++){
         initialBuffer.copyFrom(n,0,buffer,n,0,bufferLength);
     }
+    DryWet.pushDrySamples(buffer);
     
     splitBlock(initialBuffer,Fs,c);
-    
     processBand(c);
-    
     rebuildBlock(initialBuffer, c);
     
     // take finalBuffer value and copy into the inputted buffer
     dsp::AudioBlock<float> finalBlock (finalBuffer);
     float gain_linear = pow(10.f, gain/20.f); // convert from dB to linear
     finalBlock.multiplyBy(gain_linear);
+    DryWet.mixWetSamples(finalBlock);
     finalBlock.copyTo(finalBuffer);
+    
+    DryWet.setWetMixProportion(dryWet);
+    // make wetBuffer = finalBuffer; multiplyBy()
+    // dryBuffer = initialBuffer; multiplyBy()
+//    finalBuffer.addFrom(channel, 0, midBuffer, channel, 0, bufferLength);
     for (int n = 0; n < c; n++){
         buffer.copyFrom(n, 0, finalBuffer, n, 0, bufferLength);
     }
@@ -61,12 +67,10 @@ void MultiBandComp::splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c
         hiBuffer.copyFrom(n, 0, buffer, n, 0, bufferLength);
     }
 
-// filter each buffer based on the interface parameters
+// filter each buffer twice based on the interface parameters
     setBQParameters(Fs, lowMidF, midHiF);
     BQLow.processBlock(lowBuffer);
     BQLow1.processBlock(lowBuffer);
-    // THIS IS WHERE THE ISSUE LIES.... i can't daisy-chain for some reason...
-    // maybe the two instances will work??
     
     setBQParameters(Fs, lowMidF, midHiF);
     BQMid.processBlock(midBuffer);
@@ -111,7 +115,6 @@ void MultiBandComp::processBand(int c){
 };
 
 void MultiBandComp::rebuildBlock(juce::AudioBuffer<float> &buffer, int c){
-
     // combine together processed bands into an audioBlock
     for (int channel = 0; channel < c; channel++) {
         finalBuffer.copyFrom(channel, 0, lowBuffer, channel, 0, bufferLength);
@@ -121,8 +124,7 @@ void MultiBandComp::rebuildBlock(juce::AudioBuffer<float> &buffer, int c){
 };
 
 void MultiBandComp::setBQParameters(double newFs, double newLMFreq, double newMHFreq){
-    // filter the incoming buffer based on the other input parameters
-    
+    // set parameters of the biquad filters
         bqFLow = newLMFreq;
         BQLow.setFs(newFs);
         BQLow1.setFs(newFs);

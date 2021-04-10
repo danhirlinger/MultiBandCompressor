@@ -59,6 +59,7 @@ private:
     
     // Overall knobs
     Slider signalGain;
+    Slider dryWet;
     
     // Design classes
     LookAndFeel_V4 lowHiKnobColor;

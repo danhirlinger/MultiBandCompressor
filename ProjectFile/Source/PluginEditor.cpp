@@ -173,14 +173,23 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     // --------------------------------------------------------------------
     
 //    signalGain.addListener(this);
-    signalGain.setBounds(60,430,150,150);
+    signalGain.setBounds(310,445,100,100);
     signalGain.setRange(-12.f,12.f,.1f);
 //    signalGain.setValue(MBC.gain);
-    signalGain.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
+    signalGain.setTextBoxStyle(Slider::TextBoxBelow, false, 60, 20);
     signalGain.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    signalGain.setSize(90,90);
+    signalGain.setSize(80,80);
     addAndMakeVisible(signalGain);
     sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"signalGain",signalGain));
+    
+    dryWet.setBounds(400,445,50,50);
+    dryWet.setRange(0.f,1.f,.01f);
+//    dryWet.setValue(0.5f);
+    dryWet.setTextBoxStyle(Slider::TextBoxBelow, false, 60, 20);
+    dryWet.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    dryWet.setSize(80,80);
+    addAndMakeVisible(dryWet);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"dryWet",dryWet));
     
 //    lowMidF.addListener(this);
     lowMidF.setBounds(144, 30, 100, 30);
@@ -218,7 +227,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     hiMeter.configuration = SimpleMeter::VERTICAL;
     addAndMakeVisible(hiMeter);
     
-    gainMeter.setBounds(170,470,300,20);
+    gainMeter.setBounds(30,470,280,15);
     gainMeter.configuration = SimpleMeter::HORIZONTAL;
     addAndMakeVisible(gainMeter);
     
@@ -242,7 +251,7 @@ void MultiBandCompressorAudioProcessorEditor::paint (Graphics& g)
     
     auto bottomColor = Colours::grey;
     g.setColour(bottomColor);
-    g.fillRect(0,435,500,200);
+    g.fillRect(0,425,500,200);
     
     // draw text for knob labels (will appear on left side)
     g.setFont(14);
@@ -253,13 +262,15 @@ void MultiBandCompressorAudioProcessorEditor::paint (Graphics& g)
     g.drawFittedText("Attack", 3, 260, 75, 50, Justification::centred, 1);
     g.drawFittedText("Release", 3, 355, 75, 50, Justification::centred, 1);
     g.setFont(17);
-    g.drawFittedText("Gain", 3, 440, 75,50, Justification::centred, 1);
+    g.drawFittedText("Gain", 310, 415, 75, 50, Justification::centred, 1);
+    g.drawFittedText("Dry/Wet", 400, 415, 75, 50, Justification::centred, 1);
     
     // text for frequency band labels
     g.setFont(30);
     g.setColour(Colours::powderblue);
     g.drawFittedText("Low", 40, 15, 115, 50, Justification::centred, 1);
     g.drawFittedText("Hi", 370, 15, 115, 50, Justification::centred, 1);
+    g.drawFittedText("Output", 115, 420, 115, 50, Justification::centred, 1);
     g.setColour(Colours::darkslategrey);
     g.drawFittedText("Mid", 200, 15, 115, 50, Justification::centred, 1);
 

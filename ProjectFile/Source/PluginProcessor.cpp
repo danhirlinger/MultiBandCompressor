@@ -53,6 +53,7 @@ AudioProcessorValueTreeState::ParameterLayout MultiBandCompressorAudioProcessor:
     params.push_back( std::make_unique<AudioParameterFloat> ("releaseHi","ReleaseHi",0.1f,10000.f,1.f));
     
     params.push_back( std::make_unique<AudioParameterFloat> ("signalGain","SignalGain",-12.f,12.f,0.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("dryWet","DryWet",0.f,1.f,0.5f));
     
     params.push_back( std::make_unique<AudioParameterFloat>("lowMidF","LowMidF",250.f,1000.f,500.f));
     params.push_back( std::make_unique<AudioParameterFloat>("midHiF","MidHiF",1500.f,5000.f,3000.f));
@@ -184,6 +185,7 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     MBC.reHi = *MBCstate.getRawParameterValue("releaseHi");
     
     MBC.gain = *MBCstate.getRawParameterValue("signalGain");
+    MBC.dryWet = *MBCstate.getRawParameterValue("dryWet");
     MBC.lowMidF = *MBCstate.getRawParameterValue("lowMidF");
     MBC.midHiF = *MBCstate.getRawParameterValue("midHiF");
 
