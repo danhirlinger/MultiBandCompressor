@@ -29,10 +29,7 @@ public:
     void resized() override;
     
     void sliderValueChanged(Slider * slider) override;
-    
     void timerCallback() override;
-    
-    
     
 private:
     // This reference is provided as a quick way for your editor to
@@ -70,7 +67,26 @@ private:
     LookAndFeel_V4 fValsColor;
     
     
+    Colour primaryColor = Colours::maroon;
+    Colour secondaryColor = Colours::burlywood;
+    Colour tertiaryColor = Colours::black;
+    
+    enum midKnobColors{
+//        thumbColorID = primaryColor,
+//        textBoxTextColorId = tertiaryColor
+        thumbColorId = 0,
+        textBoxTextColorId = 0
+    }midKnobColors;
+//    lowHiKnobColor.setColour (Slider::thumbColourId, secondaryColor);
+//    midKnobColor.setColour (Slider::thumbColourId, primaryColor);
+//    midKnobTextColor.setColour (Slider::textBoxTextColourId, Colours::black);
+//    fValsColor.setColour (Slider::textBoxBackgroundColourId, tertiaryColor);
+    
+    
+    
     // Frequency parameter text boxes
+    
+    // Make these just text boxes? // ---------------------------------------------------------------------------------------------------
     Slider lowMidF; // freq dividing low's and mid's
     Slider midHiF; // freq dividing mid's and high's
     
@@ -81,7 +97,6 @@ private:
     SimpleMeter gainMeter;
     
     MultiBandComp MBC;
-
     
 public:
     

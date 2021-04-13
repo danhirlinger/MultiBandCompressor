@@ -123,7 +123,7 @@ void MultiBandComp::rebuildBlock(juce::AudioBuffer<float> &buffer, int c){
     }
 };
 
-void MultiBandComp::setBQParameters(double newFs, double newLMFreq, double newMHFreq){
+void MultiBandComp::setBQParameters(double newFs, int newLMFreq, int newMHFreq){
     // set parameters of the biquad filters
         bqFLow = newLMFreq;
         BQLow.setFs(newFs);
@@ -142,7 +142,7 @@ void MultiBandComp::setBQParameters(double newFs, double newLMFreq, double newMH
         BQHi1.setFilterType(Biquad::BPF1);
 
         // need to establish a "center" frequency for BPF
-        bqFMid = ((newLMFreq + newMHFreq) / 2.f);
+        bqFMid = (((float)newLMFreq + (float)newMHFreq) / 2.f);
         BQMid.setFs(newFs);
         BQMid1.setFs(newFs);
         BQMid.setFreq(bqFMid);

@@ -24,7 +24,7 @@ public:
     void splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c); // split block into the specific bands
     void processBand(int c); // process band based on respective compressor parameters
     void rebuildBlock(juce::AudioBuffer<float> &buffer, int c); // combine together processed bands
-    void setBQParameters(double newFs, double newLMFreq, double newMHFreq); // set the filters parameters of the particular band
+    void setBQParameters(double newFs, int newLMFreq, int newMHFreq); // set the filters parameters of the particular band
     
     float getMeterVal(juce::AudioBuffer<float> &buffer, int c, int n); // go through block by sample to obtain meter values
     
@@ -46,8 +46,8 @@ public:
     
     // Overall knobs
     float gain = 0.f; // gain in dB; max +12db/1; min -12dB/-1
-    float lowMidF = 500.f; // freq dividing low's and mid's
-    float midHiF = 2000.f; // freq dividing mid's and high's
+    int lowMidF = 500; // freq dividing low's and mid's
+    int midHiF = 2000; // freq dividing mid's and high's
     double dryWet = 0.5f; // 0 = dry, 1 = wet
     
     float lowMeterVal;

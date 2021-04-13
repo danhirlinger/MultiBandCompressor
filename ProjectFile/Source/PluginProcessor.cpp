@@ -129,6 +129,7 @@ void MultiBandCompressorAudioProcessor::prepareToPlay (double sampleRate, int sa
     spec.sampleRate = sampleRate;
     spec.maximumBlockSize = samplesPerBlock;
     spec.numChannels = getTotalNumInputChannels();
+    VU.setSampleRate(sampleRate);
     
     MBC.prepare(spec);
 }
@@ -194,7 +195,6 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     
     for (int channel = 0; channel < totalNumInputChannels; ++channel){
         for (int n = 0; n < buffer.getNumSamples(); n++){
-            
             lowMeterVal = MBC.getMeterVal(MBC.lowBuffer, channel, n);
             midMeterVal = MBC.getMeterVal(MBC.midBuffer, channel, n);
             hiMeterVal = MBC.getMeterVal(MBC.hiBuffer, channel, n);

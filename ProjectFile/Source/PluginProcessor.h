@@ -60,6 +60,8 @@ public:
     float hiMeterVal;
     float gainMeterVal;
     
+    VUAnalysis VU;
+    
     MultiBandComp MBC;
     
     AudioProcessorValueTreeState MBCstate;
