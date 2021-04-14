@@ -73,9 +73,9 @@ private:
     
     dsp::DryWetMixer<float> DryWet;
     
-    Biquad BQLow; Biquad BQLow1; float bqFLow;
+    Biquad BQLow; Biquad BQLow1; int bqFLow;
     Biquad BQMid; Biquad BQMid1; float bqFMid;
-    Biquad BQHi; Biquad BQHi1; float bqFHi;
+    Biquad BQHi; Biquad BQHi1; int bqFHi;
     
     int bufferLength;
 };

@@ -55,8 +55,8 @@ AudioProcessorValueTreeState::ParameterLayout MultiBandCompressorAudioProcessor:
     params.push_back( std::make_unique<AudioParameterFloat> ("signalGain","SignalGain",-12.f,12.f,0.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("dryWet","DryWet",0.f,1.f,0.5f));
     
-    params.push_back( std::make_unique<AudioParameterFloat>("lowMidF","LowMidF",250.f,1000.f,500.f));
-    params.push_back( std::make_unique<AudioParameterFloat>("midHiF","MidHiF",1500.f,5000.f,3000.f));
+    params.push_back( std::make_unique<AudioParameterFloat>("lowMidF","LowMidF",250,1000,500));
+    params.push_back( std::make_unique<AudioParameterFloat>("midHiF","MidHiF",1500,5000,3000));
     
     return {params.begin() , params.end() };
 }

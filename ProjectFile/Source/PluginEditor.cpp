@@ -14,13 +14,27 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
 {
     setSize(500, 525);
     
+    // primary = maroon
+    // secondary = gold
+    // tertiary = black
+    
     lowHiKnobColor.setColour (Slider::thumbColourId, secondaryColor);
+    lowHiKnobColor.setColour (Slider::textBoxOutlineColourId, primaryColor);
+    lowHiKnobColor.setColour (Slider::rotarySliderFillColourId, secondaryColor.darker());
+    
     midKnobColor.setColour (Slider::thumbColourId, primaryColor);
-    midKnobTextColor.setColour (Slider::textBoxTextColourId, Colours::black);
+    midKnobColor.setColour (Slider::textBoxTextColourId, tertiaryColor);
+    midKnobColor.setColour (Slider::textBoxOutlineColourId, secondaryColor);
+    midKnobColor.setColour (Slider::rotarySliderFillColourId, primaryColor.darker());
+    
+    overallKnobsColor.setColour (Slider::thumbColourId, secondaryColor);
+    overallKnobsColor.setColour (Slider::textBoxOutlineColourId, tertiaryColor);
+    overallKnobsColor.setColour (Slider::rotarySliderFillColourId, primaryColor);
+    
+    fValsColor.setColour(Slider::thumbColourId, Colours::white);
+    fValsColor.setColour(Slider::textBoxOutlineColourId, tertiaryColor);
     fValsColor.setColour (Slider::textBoxBackgroundColourId, tertiaryColor);
     
-    
-//    midKnobColors::thumbColorId = primaryColor;
     // would like to figure out how to change color of meter; below did not work
 //    lowMeter.setColour (juce::Slider::thumbColourId, juce::Colours::green);
     
@@ -85,7 +99,6 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     threshMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     threshMid.setSize(80,80);
     threshMid.setLookAndFeel(&midKnobColor);
-//    threshMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(threshMid);
     sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"threshMid",threshMid));
     
@@ -97,7 +110,6 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     ratioMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     ratioMid.setSize(80,80);
     ratioMid.setLookAndFeel(&midKnobColor);
-    ratioMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(ratioMid);
     sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"ratioMid",ratioMid));
     
@@ -109,7 +121,6 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     attackMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     attackMid.setSize(80,80);
     attackMid.setLookAndFeel(&midKnobColor);
-    attackMid.setLookAndFeel(&midKnobTextColor);
     addAndMakeVisible(attackMid);
     sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"attackMid",attackMid));
     
@@ -120,7 +131,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     releaseMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     releaseMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     releaseMid.setSize(80,80);
-    releaseMid.setLookAndFeel(&midKnobColor);releaseMid.setLookAndFeel(&midKnobTextColor);
+    releaseMid.setLookAndFeel(&midKnobColor);
     addAndMakeVisible(releaseMid);
     sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"releaseMid",releaseMid));
     
@@ -180,7 +191,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     signalGain.setTextBoxStyle(Slider::TextBoxBelow, false, 60, 20);
     signalGain.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     signalGain.setSize(80,80);
-    signalGain.setLookAndFeel(&lowHiKnobColor);
+    signalGain.setLookAndFeel(&overallKnobsColor);
     addAndMakeVisible(signalGain);
     sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"signalGain",signalGain));
     
@@ -190,7 +201,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
 //    dryWet.setValue(0.5f);
     dryWet.setTextBoxStyle(Slider::TextBoxBelow, false, 60, 20);
     dryWet.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    dryWet.setLookAndFeel(&lowHiKnobColor);
+    dryWet.setLookAndFeel(&overallKnobsColor);
     dryWet.setSize(80,80);
     addAndMakeVisible(dryWet);
     sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"dryWet",dryWet));
@@ -205,6 +216,12 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     lowMidF.setLookAndFeel(&fValsColor);
     addAndMakeVisible(lowMidF);
     sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.MBCstate,"lowMidF",lowMidF));
+    
+//    lowMidF2.addListener(this);
+//    lowMidF2.setBounds(50, 50, 50, 50);
+//    lowMidF2.textBoxTextChanged();
+//    
+//    addAndMakeVisible(lowMidF2);
     
     
 //    midHiF.addListener(this);
@@ -280,6 +297,7 @@ void MultiBandCompressorAudioProcessorEditor::paint (Graphics& g)
     g.setColour(Colours::maroon);
     g.drawFittedText("Mid", 200, 15, 115, 50, Justification::centred, 1);
 
+    
 }
 
 void MultiBandCompressorAudioProcessorEditor::resized()

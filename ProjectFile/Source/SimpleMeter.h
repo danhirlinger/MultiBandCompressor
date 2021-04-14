@@ -35,7 +35,8 @@ public:
         
         switch (configuration) {
             case VERTICAL:
-                g.setColour (getLookAndFeel().findColour (juce::Slider::thumbColourId));
+//                g.setColour (getLookAndFeel().findColour (juce::Slider::thumbColourId));
+                g.setColour (Colours::yellow);
                 g.fillRoundedRectangle (area.toFloat(), 6.0);
                 g.reduceClipRegion (area.getX(), area.getY(),
                                     area.getWidth(), (int) unfilledHeight);
@@ -45,10 +46,12 @@ public:
             
             case HORIZONTAL:
                 g.setColour (getLookAndFeel().findColour (juce::Slider::trackColourId));
+                
                 g.fillRoundedRectangle (area.toFloat(), 6.0);
                 g.reduceClipRegion (area.getX(), area.getY(),
                                     area.getWidth() - (int) unfilledWidth,area.getHeight());
-                g.setColour (getLookAndFeel().findColour (juce::Slider::thumbColourId));
+//                g.setColour (getLookAndFeel().findColour (juce::Slider::thumbColourId));
+                g.setColour (Colours::yellow);
                 g.fillRoundedRectangle (area.toFloat(), 6.0);
                 break;
             

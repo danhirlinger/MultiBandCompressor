@@ -17,7 +17,8 @@
 */
 class MultiBandCompressorAudioProcessorEditor  : public AudioProcessorEditor,
                                                  public Slider::Listener,
-                                                 public Timer
+                                                 public Timer,
+                                                 public TextEditor::Listener
 
 {
 public:
@@ -61,33 +62,18 @@ private:
     // Design classes
     LookAndFeel_V4 lowHiKnobColor;
     LookAndFeel_V4 midKnobColor;
-    LookAndFeel_V4 midKnobTextColor;
-    LookAndFeel_V4 lowHiTextBoxColor;
-    LookAndFeel_V4 midTextBoxColor;
+    LookAndFeel_V4 overallKnobsColor;
     LookAndFeel_V4 fValsColor;
-    
     
     Colour primaryColor = Colours::maroon;
     Colour secondaryColor = Colours::burlywood;
     Colour tertiaryColor = Colours::black;
     
-    enum midKnobColors{
-//        thumbColorID = primaryColor,
-//        textBoxTextColorId = tertiaryColor
-        thumbColorId = 0,
-        textBoxTextColorId = 0
-    }midKnobColors;
-//    lowHiKnobColor.setColour (Slider::thumbColourId, secondaryColor);
-//    midKnobColor.setColour (Slider::thumbColourId, primaryColor);
-//    midKnobTextColor.setColour (Slider::textBoxTextColourId, Colours::black);
-//    fValsColor.setColour (Slider::textBoxBackgroundColourId, tertiaryColor);
-    
-    
-    
     // Frequency parameter text boxes
     
     // Make these just text boxes? // ---------------------------------------------------------------------------------------------------
     Slider lowMidF; // freq dividing low's and mid's
+    TextEditor lowMidF2;
     Slider midHiF; // freq dividing mid's and high's
     
     // Meters
