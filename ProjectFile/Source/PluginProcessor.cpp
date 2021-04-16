@@ -37,17 +37,17 @@ MultiBandCompressorAudioProcessor::~MultiBandCompressorAudioProcessor()
 AudioProcessorValueTreeState::ParameterLayout MultiBandCompressorAudioProcessor::createParameterLayout(){
     std::vector<std::unique_ptr<RangedAudioParameter>> params; // a vector of pointers to the parameters
     
-    params.push_back( std::make_unique<AudioParameterFloat> ("threshLow","ThreshLow",-24.f,6.f,0.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("threshLow","ThreshLow",-50.f,0.f,0.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("ratioLow","RatioLow",1.f,100.f,1.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("attackLow","AttackLow",0.1f,10000.f,1.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("releaseLow","ReleaseLow",0.1f,10000.f,1.f));
     
-    params.push_back( std::make_unique<AudioParameterFloat> ("threshMid","ThreshMid",-24.f,6.f,0.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("threshMid","ThreshMid",-50.f,0.f,0.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("ratioMid","RatioMid",1.f,100.f,1.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("attackMid","AttackMid",0.1f,10000.f,1.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("releaseMid","ReleaseMid",0.1f,10000.f,1.f));
     
-    params.push_back( std::make_unique<AudioParameterFloat> ("threshHi","ThreshHi",-24.f,6.f,0.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("threshHi","ThreshHi",-50.f,0.f,0.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("ratioHi","RatioHi",1.f,100.f,1.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("attackHi","AttackHi",0.1f,10000.f,1.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("releaseHi","ReleaseHi",0.1f,10000.f,1.f));

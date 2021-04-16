@@ -42,7 +42,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     // ---------------- KNOBS FOR LOWS ------------------------------------
 //    threshLow.addListener(this);
     threshLow.setBounds(60,65,150,150);
-    threshLow.setRange(-24.f,6.f,.1f); // dB
+    threshLow.setRange(-50.f,0.f,.1f); // dB
 //    threshLow.setValue(MBC.tLow);
     threshLow.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     threshLow.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
@@ -93,7 +93,8 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     // change text color in the boxes
 //    threshMid.addListener(this);
     threshMid.setBounds(200,65,150,150);
-    threshMid.setRange(-24.f,6.f,.1f); // dB
+//    threshMid.setRange(-24.f,6.f,.1f); // dB
+    threshMid.setRange(-50.f,0.f,.1f);
 //    threshMid.setValue(MBC.tMid);
     threshMid.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     threshMid.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
@@ -139,7 +140,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
     // --------------------- KNOBS FOR HIS --------------------------------
 //    threshHi.addListener(this);
     threshHi.setBounds(365,65,150,150);
-    threshHi.setRange(-24.f,6.f,.1f); // dB
+    threshHi.setRange(-50.f,0.f,.1f); // dB
 //    threshHi.setValue(MBC.tHi);
     threshHi.setTextBoxStyle(Slider::TextBoxBelow, false, 75, 25);
     threshHi.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
@@ -220,7 +221,7 @@ MultiBandCompressorAudioProcessorEditor::MultiBandCompressorAudioProcessorEditor
 //    lowMidF2.addListener(this);
 //    lowMidF2.setBounds(50, 50, 50, 50);
 //    lowMidF2.textBoxTextChanged();
-//    
+//
 //    addAndMakeVisible(lowMidF2);
     
     

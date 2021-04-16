@@ -12,6 +12,7 @@
 #include "VUAnalysis.h"
 #include "Biquad.h"
 
+
 class MultiBandComp{
     
 public:
@@ -29,17 +30,17 @@ public:
     float getMeterVal(juce::AudioBuffer<float> &buffer, int c, int n); // go through block by sample to obtain meter values
     
     // Low knobs
-    float tLow = 6.f;
+    float tLow = 0.f;
     float raLow = 1.f;
     float aLow = 1.f;
     float reLow = 1.f;
     // Mid knobs
-    float tMid = 6.f;
+    float tMid = 0.f;
     float raMid = 1.f;
     float aMid = 1.f;
     float reMid = 1.f;
     // Hi knobs
-    float tHi = 6.f;
+    float tHi = 0.f;
     float raHi = 1.f;
     float aHi = 1.f;
     float reHi = 1.f;
@@ -55,11 +56,11 @@ public:
     float hiMeterVal;
     float gainMeterVal;
     
-    juce::AudioBuffer<float> initialBuffer;
-    juce::AudioBuffer<float> lowBuffer;
-    juce::AudioBuffer<float> midBuffer;
-    juce::AudioBuffer<float> hiBuffer;
-    juce::AudioBuffer<float> finalBuffer;
+    AudioBuffer<float> initialBuffer;
+    AudioBuffer<float> lowBuffer;
+    AudioBuffer<float> midBuffer;
+    AudioBuffer<float> hiBuffer;
+    AudioBuffer<float> finalBuffer;
     
 private:
     
