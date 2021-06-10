@@ -93,6 +93,14 @@
 			isa = PBXBuildFile;
 			fileRef = 0E80671C2DDF81F0AFAEDE81;
 		};
+		F26E5061D81214880549609E = {
+			isa = PBXBuildFile;
+			fileRef = 9771FF53B1A6AF5E9C4ED58A;
+		};
+		E6D2827D193E021BFD170352 = {
+			isa = PBXBuildFile;
+			fileRef = 9493E744050F278055FCCEA7;
+		};
 		8A17911B6E29BCDE9AAFA0A9 = {
 			isa = PBXBuildFile;
 			fileRef = A233226AEF817A6844B50C0E;
@@ -183,6 +191,13 @@
 			path = "~/JUCE/modules/juce_dsp";
 			sourceTree = "<absolute>";
 		};
+		01C1F01B779D62EEEE2253CA = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = "meter_37_frms.png";
+			path = "../../../../../SirFridgeProductions/Graphics/meter_37_frms.png";
+			sourceTree = "SOURCE_ROOT";
+		};
 		07824AB39F75EF847B029A21 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -230,6 +245,13 @@
 			lastKnownFileType = file.nib;
 			name = RecentFilesMenuTemplate.nib;
 			path = RecentFilesMenuTemplate.nib;
+			sourceTree = "SOURCE_ROOT";
+		};
+		1A0D436095171FE904E89915 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = BinaryData.h;
+			path = ../../JuceLibraryCode/BinaryData.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		1A4F8FEBD21F4E924993CFBE = {
@@ -372,11 +394,25 @@
 			path = System/Library/Frameworks/QuartzCore.framework;
 			sourceTree = SDKROOT;
 		};
+		8094FB81ED80F6A72E2A6588 = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = "knob_09_128.png";
+			path = "../../../../../SirFridgeProductions/Graphics/knob_09_128.png";
+			sourceTree = "SOURCE_ROOT";
+		};
 		84809D3E47538BF7DC24529D = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_audio_utils.mm";
 			path = "../../JuceLibraryCode/include_juce_audio_utils.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		85E638AD9978B4EBBA260313 = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = "knob_09_256.png";
+			path = "../../../../../SirFridgeProductions/Graphics/knob_09_256.png";
 			sourceTree = "SOURCE_ROOT";
 		};
 		8C03F4FDBE178A0DD2956D21 = {
@@ -400,12 +436,33 @@
 			path = "Info-Standalone_Plugin.plist";
 			sourceTree = "SOURCE_ROOT";
 		};
+		9493E744050F278055FCCEA7 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = BinaryData2.cpp;
+			path = ../../JuceLibraryCode/BinaryData2.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		9771FF53B1A6AF5E9C4ED58A = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = BinaryData.cpp;
+			path = ../../JuceLibraryCode/BinaryData.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		981AAECEB0AFFCEC5415756B = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
 			name = "juce_gui_basics";
 			path = "~/JUCE/modules/juce_gui_basics";
 			sourceTree = "<absolute>";
+		};
+		9A5CED2D9B34A3146DE3F04A = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = SignalGain.h;
+			path = ../../Source/SignalGain.h;
+			sourceTree = "SOURCE_ROOT";
 		};
 		9F2F92A29CD081CF7AA09D62 = {
 			isa = PBXFileReference;
@@ -449,6 +506,13 @@
 			path = "~/JUCE/modules/juce_graphics";
 			sourceTree = "<absolute>";
 		};
+		AF2AB617B9246EBAE15660EB = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = "KnobSmallBlack_2.h";
+			path = "../../Source/KnobSmallBlack_2.h";
+			sourceTree = "SOURCE_ROOT";
+		};
 		AFBAFFEC567678317635F3CF = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -470,6 +534,13 @@
 			path = "~/JUCE/modules/juce_audio_plugin_client";
 			sourceTree = "<absolute>";
 		};
+		BB319EDEB7E1CDB393B15883 = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = "knob_05_128.png";
+			path = "../../../../../SirFridgeProductions/Graphics/knob_05_128.png";
+			sourceTree = "SOURCE_ROOT";
+		};
 		C11AC79C0BF8EC530E5260A2 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -489,6 +560,13 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_dsp.mm";
 			path = "../../JuceLibraryCode/include_juce_dsp.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		C5BE57EB47DBB20835704841 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = LEDMeter.h;
+			path = ../../Source/LEDMeter.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		CBCA79E87CFC702E5081533E = {
@@ -561,11 +639,25 @@
 			path = System/Library/Frameworks/Carbon.framework;
 			sourceTree = SDKROOT;
 		};
+		E20EB9FDB34637F3C4186D14 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = KnobSmallBlack.h;
+			path = ../../Source/KnobSmallBlack.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		E3288087D912D19B16EA5144 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_core.mm";
 			path = "../../JuceLibraryCode/include_juce_core.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		E40EA932231CD61AA9FDAD6B = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = "knob_05_256.png";
+			path = "../../../../../SirFridgeProductions/Graphics/knob_05_256.png";
 			sourceTree = "SOURCE_ROOT";
 		};
 		E47CB542A91914FA6213FBE7 = {
@@ -637,14 +729,39 @@
 				08FED38E25E0103922ACE8EE,
 				0E80671C2DDF81F0AFAEDE81,
 				7392BF36AA9C448F54E27B58,
+				C5BE57EB47DBB20835704841,
 			);
 			name = Source;
+			sourceTree = "<group>";
+		};
+		DB8F388BC2B4244BCEC4862B = {
+			isa = PBXGroup;
+			children = (
+				9A5CED2D9B34A3146DE3F04A,
+				E20EB9FDB34637F3C4186D14,
+				AF2AB617B9246EBAE15660EB,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		E9CF8492035EDC90C1765B74 = {
+			isa = PBXGroup;
+			children = (
+				01C1F01B779D62EEEE2253CA,
+				BB319EDEB7E1CDB393B15883,
+				E40EA932231CD61AA9FDAD6B,
+				8094FB81ED80F6A72E2A6588,
+				85E638AD9978B4EBBA260313,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		4E7438ADAEA53C0316DBFC5D = {
 			isa = PBXGroup;
 			children = (
 				E53AED3F01F5215A1D307BBD,
+				DB8F388BC2B4244BCEC4862B,
+				E9CF8492035EDC90C1765B74,
 			);
 			name = MultiBandCompressor;
 			sourceTree = "<group>";
@@ -672,6 +789,9 @@
 		4B40D626103184BB51C83479 = {
 			isa = PBXGroup;
 			children = (
+				9771FF53B1A6AF5E9C4ED58A,
+				1A0D436095171FE904E89915,
+				9493E744050F278055FCCEA7,
 				A233226AEF817A6844B50C0E,
 				6ED48D712C44C5BAB40EBD9E,
 				9F2F92A29CD081CF7AA09D62,
@@ -2070,6 +2190,8 @@
 				C2D15B8476D4A7E31B859909,
 				5F01A9439B254F8502529ED4,
 				6B82CEA6AAA64D28278AAB87,
+				F26E5061D81214880549609E,
+				E6D2827D193E021BFD170352,
 				8A17911B6E29BCDE9AAFA0A9,
 				A3B1640A8105B3212CA3737B,
 				D439962E0D6AC149852131D8,

@@ -11,6 +11,9 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "SimpleMeter.h"
+#include "LEDMeter.h"
+#include "KnobSmallBlack.h"
+#include "KnobSmallBlack_2.h"
 
 //==============================================================================
 /**
@@ -32,10 +35,16 @@ public:
     void sliderValueChanged(Slider * slider) override;
     void timerCallback() override;
     
+    
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     MultiBandCompressorAudioProcessor& audioProcessor;
+    
+    KnobSmallBlack smallKnob1;
+    KnobSmallBlack smallKnob2;
+    KnobSmallBlack_2 smallKnob3;
+    
     
     // Low knobs
     Slider threshLow;
@@ -73,7 +82,6 @@ private:
     
     // Make these just text boxes? // ---------------------------------------------------------------------------------------------------
     Slider lowMidF; // freq dividing low's and mid's
-    TextEditor lowMidF2;
     Slider midHiF; // freq dividing mid's and high's
     
     // Meters
@@ -81,6 +89,10 @@ private:
     SimpleMeter midMeter;
     SimpleMeter hiMeter;
     SimpleMeter gainMeter;
+    SimpleMeter inMeter;
+    
+//    LEDMeter gainMeter2;
+//    LEDMeter inMeter2;
     
     MultiBandComp MBC;
     

@@ -18,6 +18,22 @@
       <FILE id="ytLaBu" name="VUAnalysis.h" compile="0" resource="0" file="Source/VUAnalysis.h"/>
       <FILE id="PqdkHd" name="Biquad.cpp" compile="1" resource="0" file="Source/Biquad.cpp"/>
       <FILE id="CceZpJ" name="Biquad.h" compile="0" resource="0" file="Source/Biquad.h"/>
+      <FILE id="PhxQ1T" name="LEDMeter.h" compile="0" resource="0" file="Source/LEDMeter.h"/>
+    </GROUP>
+    <GROUP id="{E98880D9-100D-8CF2-8DBD-83C63585A850}" name="Components">
+      <FILE id="kflwBY" name="SignalGain.h" compile="0" resource="0" file="Source/SignalGain.h"/>
+      <FILE id="DhTKNu" name="KnobSmallBlack.h" compile="0" resource="0"
+            file="Source/KnobSmallBlack.h"/>
+      <FILE id="oS3EP5" name="KnobSmallBlack_2.h" compile="0" resource="0"
+            file="Source/KnobSmallBlack_2.h"/>
+    </GROUP>
+    <GROUP id="{F2ACBFAF-D526-471F-63AA-0C0DA4212BC1}" name="Images">
+      <FILE id="AZ4tsC" name="meter_37_frms.png" compile="0" resource="1"
+            file="../../../SirFridgeProductions/Graphics/meter_37_frms.png"/>
+      <FILE id="ILkvBX" name="knob_05_128.png" compile="0" resource="1" file="../../../SirFridgeProductions/Graphics/knob_05_128.png"/>
+      <FILE id="qcPJq9" name="knob_05_256.png" compile="0" resource="1" file="../../../SirFridgeProductions/Graphics/knob_05_256.png"/>
+      <FILE id="IvNPdk" name="knob_09_128.png" compile="0" resource="1" file="../../../SirFridgeProductions/Graphics/knob_09_128.png"/>
+      <FILE id="E8vgVT" name="knob_09_256.png" compile="0" resource="1" file="../../../SirFridgeProductions/Graphics/knob_09_256.png"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>

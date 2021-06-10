@@ -37,17 +37,17 @@ MultiBandCompressorAudioProcessor::~MultiBandCompressorAudioProcessor()
 AudioProcessorValueTreeState::ParameterLayout MultiBandCompressorAudioProcessor::createParameterLayout(){
     std::vector<std::unique_ptr<RangedAudioParameter>> params; // a vector of pointers to the parameters
     
-    params.push_back( std::make_unique<AudioParameterFloat> ("threshLow","ThreshLow",-50.f,0.f,0.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("threshLow","ThreshLow",-50.f,100.f,0.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("ratioLow","RatioLow",1.f,100.f,1.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("attackLow","AttackLow",0.1f,10000.f,1.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("releaseLow","ReleaseLow",0.1f,10000.f,1.f));
     
-    params.push_back( std::make_unique<AudioParameterFloat> ("threshMid","ThreshMid",-50.f,0.f,0.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("threshMid","ThreshMid",-50.f,100.f,0.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("ratioMid","RatioMid",1.f,100.f,1.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("attackMid","AttackMid",0.1f,10000.f,1.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("releaseMid","ReleaseMid",0.1f,10000.f,1.f));
     
-    params.push_back( std::make_unique<AudioParameterFloat> ("threshHi","ThreshHi",-50.f,0.f,0.f));
+    params.push_back( std::make_unique<AudioParameterFloat> ("threshHi","ThreshHi",-50.f,100.f,0.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("ratioHi","RatioHi",1.f,100.f,1.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("attackHi","AttackHi",0.1f,10000.f,1.f));
     params.push_back( std::make_unique<AudioParameterFloat> ("releaseHi","ReleaseHi",0.1f,10000.f,1.f));
@@ -170,27 +170,48 @@ void MultiBandCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     
-    MBC.tLow = *MBCstate.getRawParameterValue("threshLow");
-    MBC.raLow = *MBCstate.getRawParameterValue("ratioLow");
-    MBC.aLow = *MBCstate.getRawParameterValue("attackLow");
-    MBC.reLow = *MBCstate.getRawParameterValue("releaseLow");
+    tLowSmooth = (*MBCstate.getRawParameterValue("threshLow")*.1) + (.9*tLowSmooth);
+    MBC.tLow = tLowSmooth;
+    raLowSmooth = (*MBCstate.getRawParameterValue("ratioLow")*.1) + (.9*raLowSmooth);
+    MBC.raLow = raLowSmooth;
+    aLowSmooth = (*MBCstate.getRawParameterValue("attackLow")*.1) + (.9*aLowSmooth);
+    MBC.aLow = aLowSmooth;
+    reLowSmooth = (*MBCstate.getRawParameterValue("releaseLow")*.1) + (.9*reLowSmooth);
+    MBC.reLow = reLowSmooth;
     
-    MBC.tMid = *MBCstate.getRawParameterValue("threshMid");
-    MBC.raMid = *MBCstate.getRawParameterValue("ratioMid");
-    MBC.aMid = *MBCstate.getRawParameterValue("attackMid");
-    MBC.reMid = *MBCstate.getRawParameterValue("releaseMid");
+    tMidSmooth = (*MBCstate.getRawParameterValue("threshMid")*.1) + (.9*tMidSmooth);
+    MBC.tMid = tMidSmooth;
+    raMidSmooth = (*MBCstate.getRawParameterValue("ratioMid")*.1) + (.9*raMidSmooth);
+    MBC.raMid = raMidSmooth;
+    aMidSmooth = (*MBCstate.getRawParameterValue("attackMid")*.1) + (.9*aMidSmooth);
+    MBC.aMid = aMidSmooth;
+    reMidSmooth = (*MBCstate.getRawParameterValue("releaseMid")*.1) + (.9*reMidSmooth);
+    MBC.reMid = reMidSmooth;
     
-    MBC.tHi = *MBCstate.getRawParameterValue("threshHi");
-    MBC.raHi = *MBCstate.getRawParameterValue("ratioHi");
-    MBC.aHi = *MBCstate.getRawParameterValue("attackHi");
-    MBC.reHi = *MBCstate.getRawParameterValue("releaseHi");
+    tHiSmooth = (*MBCstate.getRawParameterValue("threshHi")*.1) + (.9*tHiSmooth);
+    MBC.tHi = tHiSmooth;
+    raHiSmooth = (*MBCstate.getRawParameterValue("ratioHi")*.1) + (.9*raHiSmooth);
+    MBC.raHi = raHiSmooth;
+    aHiSmooth = (*MBCstate.getRawParameterValue("attackHi")*.1) + (.9*aHiSmooth);
+    MBC.aHi = aHiSmooth;
+    reHiSmooth = (*MBCstate.getRawParameterValue("releaseHi")*.1) + (.9*reHiSmooth);
+    MBC.reHi = reHiSmooth;
     
-    MBC.gain = *MBCstate.getRawParameterValue("signalGain");
-    MBC.dryWet = *MBCstate.getRawParameterValue("dryWet");
-    MBC.lowMidF = *MBCstate.getRawParameterValue("lowMidF");
-    MBC.midHiF = *MBCstate.getRawParameterValue("midHiF");
-
+    gainSmooth = (*MBCstate.getRawParameterValue("signalGain")*.1) + (.9*gainSmooth);
+    MBC.gain = gainSmooth;
+    dryWetSmooth = (*MBCstate.getRawParameterValue("dryWet")*.1) + (.9*dryWetSmooth);
+    MBC.dryWet = dryWetSmooth;
+    lowMidFSmooth = (*MBCstate.getRawParameterValue("lowMidF")*.1) + (.9*lowMidFSmooth);
+    MBC.lowMidF = lowMidFSmooth;
+    midHiFSmooth = (*MBCstate.getRawParameterValue("midHiF")*.1) + (.9*midHiFSmooth);
+    MBC.midHiF = midHiFSmooth;
     
+    for (int channel = 0; channel < totalNumInputChannels; ++channel){
+        for (int n = 0; n < buffer.getNumSamples(); n++){
+            float x = buffer.getReadPointer(channel)[n];
+            inMeterVal = VU.processSample(x,channel);
+        }
+    }
     MBC.processBlock(buffer,spec.sampleRate);
     
     for (int channel = 0; channel < totalNumInputChannels; ++channel){

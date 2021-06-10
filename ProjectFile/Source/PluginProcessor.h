@@ -59,6 +59,7 @@ public:
     float midMeterVal;
     float hiMeterVal;
     float gainMeterVal;
+    float inMeterVal;
     
     VUAnalysis VU;
     
@@ -66,6 +67,27 @@ public:
     
     AudioProcessorValueTreeState MBCstate;
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+
+    
+    float tLowSmooth = MBC.tLow;
+    float raLowSmooth = MBC.raLow;
+    float aLowSmooth = MBC.aLow;
+    float reLowSmooth = MBC.reLow;
+    
+    float tMidSmooth = MBC.tMid;
+    float raMidSmooth = MBC.raMid;
+    float aMidSmooth = MBC.aMid;
+    float reMidSmooth = MBC.reMid;
+    
+    float tHiSmooth = MBC.tHi;
+    float raHiSmooth = MBC.raHi;
+    float aHiSmooth = MBC.aHi;
+    float reHiSmooth = MBC.reHi;
+    
+    float gainSmooth = MBC.gain;
+    float dryWetSmooth = MBC.dryWet;
+    float lowMidFSmooth = MBC.lowMidF;
+    float midHiFSmooth = MBC.midHiF;
     
 private:
     

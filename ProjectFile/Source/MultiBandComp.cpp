@@ -17,43 +17,43 @@ void MultiBandComp::prepare (const juce::dsp::ProcessSpec& spec){
     lowC.prepare(spec);
     midC.prepare(spec);
     hiC.prepare(spec);
-    DryWet.prepare(spec);
     
-    initialBuffer.setSize(spec.numChannels, spec.maximumBlockSize); initialBuffer.clear();
+    // prepare all buffers
+    initialBuffer.setSize(spec.numChannels, spec.maximumBlockSize);
+    initialBuffer.clear();
     lowBuffer.setSize(spec.numChannels,spec.maximumBlockSize); lowBuffer.clear();
     midBuffer.setSize(spec.numChannels,spec.maximumBlockSize); midBuffer.clear();
     hiBuffer.setSize(spec.numChannels, spec.maximumBlockSize); hiBuffer.clear();
     finalBuffer.setSize(spec.numChannels,spec.maximumBlockSize); finalBuffer.clear();
-    
     bufferLength = spec.maximumBlockSize;
     
-    // could also use "balanced" or others on the site. Ask Tarr
-    DryWet.setMixingRule(juce::dsp::DryWetMixingRule::linear);
-    DryWet.setWetLatency(2); // figure out what this does
+    // prepare biquad filters
+    BQLow.setFilterType(Biquad::LPF);
+    BQLow1.setFilterType(Biquad::LPF);
+    BQMid.setFilterType(Biquad::BPF1);
+    BQMid1.setFilterType(Biquad::BPF1);
+    BQHi.setFilterType(Biquad::HPF);
+    BQHi1.setFilterType(Biquad::HPF);
+    
+    // prepare dry/wet mixer
+    DryWet.prepare(spec);
+    DryWet.setMixingRule(juce::dsp::DryWetMixingRule::balanced);
+    DryWet.setWetLatency(2);
 };
 
 void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
     int c = buffer.getNumChannels();
+    DryWet.pushDrySamples(buffer);
+    
     for (int n = 0; n < c; n++){
         initialBuffer.copyFrom(n,0,buffer,n,0,bufferLength);
     }
-    DryWet.pushDrySamples(buffer);
     
     splitBlock(initialBuffer,Fs,c);
     processBand(c);
     rebuildBlock(initialBuffer, c);
-    
-    // take finalBuffer value and copy into the inputted buffer
-    dsp::AudioBlock<float> finalBlock (finalBuffer);
-    float gain_linear = pow(10.f, gain/20.f); // convert from dB to linear
-    finalBlock.multiplyBy(gain_linear);
-    DryWet.mixWetSamples(finalBlock);
-    finalBlock.copyTo(finalBuffer);
-    
-    DryWet.setWetMixProportion(dryWet);
-    // make wetBuffer = finalBuffer; multiplyBy()
-    // dryBuffer = initialBuffer; multiplyBy()
-//    finalBuffer.addFrom(channel, 0, midBuffer, channel, 0, bufferLength);
+    finalBlock(finalBuffer,c);
+
     for (int n = 0; n < c; n++){
         buffer.copyFrom(n, 0, finalBuffer, n, 0, bufferLength);
     }
@@ -67,16 +67,15 @@ void MultiBandComp::splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c
         hiBuffer.copyFrom(n, 0, buffer, n, 0, bufferLength);
     }
 
-// filter each buffer twice based on the interface parameters
+// filter each buffer
     setBQParameters(Fs, lowMidF, midHiF);
+    
     BQLow.processBlock(lowBuffer);
     BQLow1.processBlock(lowBuffer);
     
-    setBQParameters(Fs, lowMidF, midHiF);
     BQMid.processBlock(midBuffer);
     BQMid1.processBlock(midBuffer);
     
-    setBQParameters(Fs, lowMidF, midHiF);
     BQHi.processBlock(hiBuffer);
     BQHi1.processBlock(hiBuffer);
 }
@@ -84,7 +83,6 @@ void MultiBandComp::splitBlock(juce::AudioBuffer<float> &buffer, float Fs, int c
 void MultiBandComp::processBand(int c){
     
 // set compressor values for each band's compressor
-    
     lowC.setRatio(raLow);
     lowC.setAttack(aLow);
     lowC.setRelease(reLow);
@@ -115,12 +113,23 @@ void MultiBandComp::processBand(int c){
 };
 
 void MultiBandComp::rebuildBlock(juce::AudioBuffer<float> &buffer, int c){
-    // combine together processed bands into an audioBlock
+    // combine together processed bands into one audioBlock
     for (int channel = 0; channel < c; channel++) {
         finalBuffer.copyFrom(channel, 0, lowBuffer, channel, 0, bufferLength);
         finalBuffer.addFrom(channel, 0, midBuffer, channel, 0, bufferLength);
         finalBuffer.addFrom(channel, 0, hiBuffer, channel, 0, bufferLength);
     }
+};
+
+void MultiBandComp::finalBlock(juce::AudioBuffer<float> &buffer, int c){
+    // take finalBuffer value and copy into the inputted buffer
+    dsp::AudioBlock<float> finalBlock (buffer);
+    float gain_linear = pow(10.f, gain/20.f); // convert from dB to linear
+    finalBlock.multiplyBy(gain_linear);
+    DryWet.mixWetSamples(finalBlock);
+    finalBlock.copyTo(finalBuffer);
+    
+    DryWet.setWetMixProportion(dryWet);
 };
 
 void MultiBandComp::setBQParameters(double newFs, int newLMFreq, int newMHFreq){
@@ -130,16 +139,12 @@ void MultiBandComp::setBQParameters(double newFs, int newLMFreq, int newMHFreq){
         BQLow1.setFs(newFs);
         BQLow.setFreq(bqFLow);
         BQLow1.setFreq(bqFLow);
-        BQLow.setFilterType(Biquad::LPF);
-        BQLow1.setFilterType(Biquad::LPF);
 
         bqFHi = newMHFreq;
         BQHi.setFs(newFs);
         BQHi1.setFs(newFs);
         BQHi.setFreq(bqFHi);
         BQHi1.setFreq(bqFHi);
-        BQHi.setFilterType(Biquad::BPF1);
-        BQHi1.setFilterType(Biquad::BPF1);
 
         // need to establish a "center" frequency for BPF
         bqFMid = (((float)newLMFreq + (float)newMHFreq) / 2.f);
@@ -147,8 +152,7 @@ void MultiBandComp::setBQParameters(double newFs, int newLMFreq, int newMHFreq){
         BQMid1.setFs(newFs);
         BQMid.setFreq(bqFMid);
         BQMid1.setFreq(bqFMid);
-        BQMid.setFilterType(Biquad::HPF);
-        BQMid1.setFilterType(Biquad::HPF);
+
 };
 
 float MultiBandComp::getMeterVal(juce::AudioBuffer<float> &buffer, int c, int n){
