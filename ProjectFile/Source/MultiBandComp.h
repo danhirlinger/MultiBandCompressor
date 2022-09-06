@@ -52,11 +52,6 @@ public:
     int midHiF = 2000; // freq dividing mid's and high's
     double dryWet = 0.5f; // 0 = dry, 1 = wet
     
-    float lowMeterVal;
-    float midMeterVal;
-    float hiMeterVal;
-    float gainMeterVal;
-    
     AudioBuffer<float> initialBuffer;
     AudioBuffer<float> lowBuffer;
     AudioBuffer<float> midBuffer;

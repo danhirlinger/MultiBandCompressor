@@ -19,7 +19,6 @@
 /**
 */
 class MultiBandCompressorAudioProcessorEditor  : public AudioProcessorEditor,
-                                                 public Slider::Listener,
                                                  public Timer,
                                                  public TextEditor::Listener
 
@@ -32,9 +31,7 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    void sliderValueChanged(Slider * slider) override;
     void timerCallback() override;
-    
     
 private:
     // This reference is provided as a quick way for your editor to
@@ -44,7 +41,6 @@ private:
     KnobSmallBlack smallKnob1;
     KnobSmallBlack smallKnob2;
     KnobSmallBlack_2 smallKnob3;
-    
     
     // Low knobs
     Slider threshLow;
@@ -77,10 +73,11 @@ private:
     Colour primaryColor = Colours::maroon;
     Colour secondaryColor = Colours::burlywood;
     Colour tertiaryColor = Colours::black;
+    void setColours();
     
     // Frequency parameter text boxes
     
-    // Make these just text boxes? // ---------------------------------------------------------------------------------------------------
+    // Make these just text boxes?
     Slider lowMidF; // freq dividing low's and mid's
     Slider midHiF; // freq dividing mid's and high's
     
@@ -96,8 +93,11 @@ private:
     
     MultiBandComp MBC;
     
+    void setCompSliderParams(juce::Slider &slider);
+    
 public:
     
+    void connectSliderAttachments();
     std::vector<std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>> sliderAttachments;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MultiBandCompressorAudioProcessorEditor)

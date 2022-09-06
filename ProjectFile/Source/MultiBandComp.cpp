@@ -38,12 +38,13 @@ void MultiBandComp::prepare (const juce::dsp::ProcessSpec& spec){
     // prepare dry/wet mixer
     DryWet.prepare(spec);
     DryWet.setMixingRule(juce::dsp::DryWetMixingRule::balanced);
-    DryWet.setWetLatency(2);
+    DryWet.setWetLatency(3);
 };
 
 void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
     int c = buffer.getNumChannels();
     DryWet.pushDrySamples(buffer);
+    bufferLength = buffer.getNumSamples();
     
     for (int n = 0; n < c; n++){
         initialBuffer.copyFrom(n,0,buffer,n,0,bufferLength);
