@@ -59,6 +59,10 @@ public:
     AudioBuffer<float> finalBuffer;
     
 private:
+    void reset();
+    
+    void clearBuffers();
+    void prepareBuffers(AudioBuffer<float> &buffer);
     
     float meterVal;
     
@@ -75,4 +79,6 @@ private:
     Biquad BQHi; Biquad BQHi1; int bqFHi;
     
     int bufferLength;
+    juce::dsp::ProcessSpec mbcSpec;
+    
 };

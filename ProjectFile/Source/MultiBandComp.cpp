@@ -14,18 +14,21 @@ MultiBandComp::MultiBandComp(){
 }
 
 void MultiBandComp::prepare (const juce::dsp::ProcessSpec& spec){
-    lowC.prepare(spec);
-    midC.prepare(spec);
-    hiC.prepare(spec);
+    reset();
+    
+    mbcSpec = spec;
+
+    // prepare compressors
+    lowC.prepare(mbcSpec);
+    midC.prepare(mbcSpec);
+    hiC.prepare(mbcSpec);
     
     // prepare all buffers
-    initialBuffer.setSize(spec.numChannels, spec.maximumBlockSize);
-    initialBuffer.clear();
-    lowBuffer.setSize(spec.numChannels,spec.maximumBlockSize); lowBuffer.clear();
-    midBuffer.setSize(spec.numChannels,spec.maximumBlockSize); midBuffer.clear();
-    hiBuffer.setSize(spec.numChannels, spec.maximumBlockSize); hiBuffer.clear();
-    finalBuffer.setSize(spec.numChannels,spec.maximumBlockSize); finalBuffer.clear();
-    bufferLength = spec.maximumBlockSize;
+    initialBuffer.setSize(mbcSpec.numChannels, mbcSpec.maximumBlockSize);
+    lowBuffer.setSize(mbcSpec.numChannels,mbcSpec.maximumBlockSize);
+    midBuffer.setSize(mbcSpec.numChannels,mbcSpec.maximumBlockSize);
+    hiBuffer.setSize(mbcSpec.numChannels, mbcSpec.maximumBlockSize);
+    finalBuffer.setSize(mbcSpec.numChannels,mbcSpec.maximumBlockSize);
     
     // prepare biquad filters
     BQLow.setFilterType(Biquad::LPF);
@@ -36,12 +39,14 @@ void MultiBandComp::prepare (const juce::dsp::ProcessSpec& spec){
     BQHi1.setFilterType(Biquad::HPF);
     
     // prepare dry/wet mixer
-    DryWet.prepare(spec);
+    DryWet.prepare(mbcSpec);
     DryWet.setMixingRule(juce::dsp::DryWetMixingRule::balanced);
     DryWet.setWetLatency(3);
 };
 
 void MultiBandComp::processBlock(juce::AudioBuffer<float> &buffer, float Fs){
+    clearBuffers();
+    prepareBuffers(buffer);
     int c = buffer.getNumChannels();
     DryWet.pushDrySamples(buffer);
     bufferLength = buffer.getNumSamples();
@@ -165,3 +170,29 @@ float MultiBandComp::getMeterVal(juce::AudioBuffer<float> &buffer, int c, int n)
     return meterVal;
 };
 
+
+void MultiBandComp::reset(){
+    lowC.reset();
+    midC.reset();
+    hiC.reset();
+    DryWet.reset();
+    
+    clearBuffers();
+}
+
+void MultiBandComp::clearBuffers(){
+    lowBuffer.clear();
+    midBuffer.clear();
+    hiBuffer.clear();
+    initialBuffer.clear();
+    finalBuffer.clear();
+}
+
+void MultiBandComp::prepareBuffers(AudioBuffer<float> &buffer){
+    int size = buffer.getNumSamples();
+    initialBuffer.setSize(mbcSpec.numChannels, size);
+    lowBuffer.setSize(mbcSpec.numChannels,size);
+    midBuffer.setSize(mbcSpec.numChannels,size);
+    hiBuffer.setSize(mbcSpec.numChannels, size);
+    finalBuffer.setSize(mbcSpec.numChannels,size);
+}
